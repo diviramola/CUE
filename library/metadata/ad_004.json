@@ -1,0 +1,27 @@
+{
+  "id": "ad_004",
+  "advertiser": "Zomato",
+  "platform": "YouTube",
+  "format": "In-Feed Video",
+  "duration_seconds": 60,
+  "language": "Hinglish",
+  "url": "https://www.linkedin.com/posts/karts_advertising-marketing-diwali-activity-7255159973616226305-ejko/",
+  "source": "web_search",
+  "date_found": "2026-03-28",
+  "date_published": "2024-10",
+  "vertical": "Consumer internet/food delivery",
+  "region": "India",
+  "tier": null,
+  "tier_notes": "",
+  "description": "Diwali 2024 ad parodies a popular Diwali meme with satirical tone. Features actor Piyush Mishra. Cultural moment-jacking done right. Named among top 10 Indian ads of 2024.",
+  "why_included": "Consumer internet brand with massive ad spend. Cultural moment-jacking plus celebrity plus satire combo. Zomato consistently produces organically shared ads worth studying.",
+  "tags": [
+    "cultural-moment",
+    "celebrity",
+    "satire",
+    "hinglish",
+    "shareability",
+    "consumer-internet"
+  ],
+  "deconstructed": true
+}

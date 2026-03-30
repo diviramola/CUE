@@ -1,0 +1,75 @@
+{
+  "ad_id": "ad_010",
+  "hook": {
+    "type": "curiosity_gap",
+    "face_first_frame": true,
+    "text_overlay_first_frame": false,
+    "brand_visible_3s": false,
+    "audio_hook": "dialogue",
+    "language": "Hindi",
+    "effectiveness_note": "Opens with the cryptic catchphrase 'Pehle pankha aayega, phir bijli aayegi' (first the fan will come, then the electricity). This makes NO logical sense — fans need electricity, not the other way around. The logical impossibility creates an irresistible curiosity gap. You MUST watch to understand."
+  },
+  "narrative": {
+    "arc_type": "problem_solution",
+    "tension_payoff": "buildup",
+    "num_scenes": 6,
+    "effectiveness_note": "Mystery narrative structure: the catchphrase is repeated in different contexts, each time deepening the mystery. The viewer is solving a puzzle: what does this phrase mean? The reveal (Adani's rural electrification) recontextualizes everything. The delayed gratification makes the payoff more powerful."
+  },
+  "pacing": {
+    "duration_bucket": "60s+",
+    "cuts_per_15s": 3,
+    "pace_changes": [
+      "0-10s: mysterious opening",
+      "10-40s: repeated catchphrase in different scenarios builds intrigue",
+      "40-50s: reveal",
+      "50-60s: brand and emotional payoff"
+    ],
+    "pattern_interrupts": [
+      "Each repetition of the catchphrase in a new context is a mini-mystery that re-engages the viewer"
+    ],
+    "retention_note": "Mystery structure is one of the strongest retention mechanics. The unanswered question (what does the catchphrase mean?) creates an open loop the brain NEEDS to close. Drop-off is low because leaving early means never getting the answer."
+  },
+  "audio": {
+    "music_type": "original_score",
+    "voiceover": true,
+    "voiceover_tone": "emotional",
+    "language": "Hindi",
+    "music_visual_sync": false,
+    "audio_note": "Score builds gradually from mysterious to emotional as the reveal approaches. The catchphrase becomes almost musical through repetition — it lodges in memory. The voiceover shifts from enigmatic to warm at the reveal, mirroring the narrative arc."
+  },
+  "visual": {
+    "talent_type": "actor",
+    "production_quality": "high",
+    "text_overlay_density": "none",
+    "color_mood": "muted",
+    "product_visibility": "absent_until_cta",
+    "visual_note": "Rural Indian settings — villages without electricity. Muted tones convey pre-electrification reality. When electricity arrives, the visual palette shifts to warm, brighter tones. The color shift IS the payoff, experienced visually even before the narration explains it."
+  },
+  "cta": {
+    "type": "other",
+    "timing": "late",
+    "visual_treatment": "voiceover_only",
+    "urgency_element": "none",
+    "cta_note": "No commercial CTA. This is corporate brand building — 'Adani brings electricity to those who need it.' The ad asks nothing of the viewer except a changed perception. For an infrastructure conglomerate with reputation challenges, this is the right strategy."
+  },
+  "brand": {
+    "logo_presence": "end_card_only",
+    "brand_first_named_seconds": 50,
+    "brand_voice_consistent": true,
+    "brand_note": "Brand reveal at 50 seconds is the most delayed in the library. The mystery would be destroyed by early brand reveal. When Adani's name finally appears, it carries the weight of the entire narrative. The delay is essential to the mechanic."
+  },
+  "emotional": {
+    "primary_emotion": "pride",
+    "cultural_specificity": [
+      "urban/rural"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "Rural electrification touches a deep nerve in India where millions still lack reliable power. The catchphrase structure has an oral-tradition quality, like a folk saying, which gives it cultural weight. The pride emotion (look what India is building) is powerful for infrastructure brands."
+  },
+  "x_factor": "The catchphrase is the ad. 'Pehle pankha aayega, phir bijli aayegi' is memorable, quotable, and works as both mystery and revelation. Before the reveal it is nonsensical and intriguing. After the reveal it is poetic and moving (fans are delivered to villages BEFORE the electricity grid reaches them — the fan arriving first symbolizes the promise of progress). A single phrase that works on two levels simultaneously is rare and valuable creative craft.",
+  "lessons_for_wiom": [
+    "Catchphrase as narrative device: Wiom could build a campaign around a seemingly paradoxical phrase about connectivity that resolves into a meaningful truth. 'Pehle connection aayega, phir internet aayegi' — first the human connection, then the internet connection.",
+    "Mystery structure for infrastructure brands: broadband installation is inherently boring. But wrapped in a mystery narrative, the reveal of 'what Wiom actually does for a family' could be genuinely moving. Show the BEFORE (disconnected life) as a mystery that the AFTER (connected life) solves.",
+    "Rural/Tier-3 India as protagonist, not afterthought. Most ISP ads show urban apartments. Showing a small-town family getting reliable internet for the first time would be emotionally powerful and differentiate Wiom from metro-focused Jio/Airtel."
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "version": "1.0",
+  "generated": "2026-03-28",
+  "library_size": 13,
+  "patterns": [
+    {
+      "id": "C1",
+      "name": "Open with Recognition, Not Brand",
+      "category": "completion",
+      "description": "Delay brand reveal. Open with a moment the viewer recognizes — relatable problem, visual surprise, or curiosity gap. Never a logo.",
+      "primary_metric": "video_completion",
+      "evidence_for": ["ad_010", "ad_007", "ad_012", "ad_002", "ad_004", "ad_005", "ad_006", "ad_013"],
+      "evidence_against": [],
+      "exceptions": ["ad_003", "ad_008", "ad_009"],
+      "exception_note": "Early brand works ONLY when brand identity is essential to the creative surprise (inversion, reverse psychology).",
+      "frequency": "10/13",
+      "confidence": "strong",
+      "mechanism": "Logo-first triggers ad-skip instinct. A human moment activates curiosity before the rational ad-filter engages."
+    },
+    {
+      "id": "C2",
+      "name": "Curiosity Engine — Open Loops and Escalation",
+      "category": "completion",
+      "description": "Create an unanswered question or escalating absurdity that the viewer must resolve by watching.",
+      "primary_metric": "video_completion",
+      "evidence_for": ["ad_010", "ad_007", "ad_009", "ad_002", "ad_003", "ad_011", "ad_013", "ad_012", "ad_008"],
+      "evidence_against": [],
+      "exceptions": [],
+      "exception_note": "",
+      "frequency": "9/13",
+      "confidence": "strong",
+      "mechanism": "Zeigarnik Effect — the brain cannot tolerate open loops. Unanswered questions create cognitive tension that only resolves by watching."
+    },
+    {
+      "id": "C3",
+      "name": "30 Seconds is the Sweet Spot",
+      "category": "completion",
+      "description": "30-second ads dominate for digital. 60s+ requires exceptional writing, talent, or retention mechanics.",
+      "primary_metric": "video_completion",
+      "evidence_for": ["ad_001", "ad_002", "ad_003", "ad_005", "ad_006", "ad_008", "ad_009", "ad_011", "ad_012"],
+      "evidence_against": [],
+      "exceptions": ["ad_004", "ad_007", "ad_010", "ad_013"],
+      "exception_note": "60s works with A-list talent (Piyush Mishra), deep emotional narrative (Cadbury), mystery structure (Adani), or debate format (Tata Tea).",
+      "frequency": "8/13 at 30s",
+      "confidence": "moderate",
+      "mechanism": "30s is long enough for problem-solution-CTA but short enough for most viewers to reach the end."
+    },
+    {
+      "id": "C4",
+      "name": "Pattern Interrupt at the Midpoint",
+      "category": "completion",
+      "description": "Place a tonal shift, surprise, or energy change at 40-60% of the ad's duration to prevent drop-off.",
+      "primary_metric": "video_completion",
+      "evidence_for": ["ad_005", "ad_010", "ad_012", "ad_002", "ad_004", "ad_008", "ad_009", "ad_001", "ad_011", "ad_013", "ad_006"],
+      "evidence_against": [],
+      "exceptions": [],
+      "exception_note": "",
+      "frequency": "11/13",
+      "confidence": "moderate",
+      "mechanism": "Attention naturally decays. A pattern interrupt resets the attention clock by signaling something new is happening."
+    },
+    {
+      "id": "K1",
+      "name": "Earned CTA — Story Logic Leads to Action",
+      "category": "ctr",
+      "description": "The CTA feels like the natural conclusion of the narrative, not an appended ask.",
+      "primary_metric": "ctr",
+      "evidence_for": ["ad_009", "ad_011", "ad_008", "ad_004", "ad_005", "ad_003"],
+      "evidence_against": [],
+      "exceptions": [],
+      "exception_note": "",
+      "frequency": "12/13 late CTA",
+      "confidence": "moderate",
+      "mechanism": "A CTA that follows a compelling story feels like the viewer's own idea, not the brand's demand."
+    },
+    {
+      "id": "K2",
+      "name": "Sound-Off Survivability",
+      "category": "ctr",
+      "description": "Ads designed to communicate core message visually without audio, via visual comedy or bold text overlays.",
+      "primary_metric": "ctr",
+      "evidence_for": ["ad_002", "ad_003", "ad_009", "ad_011"],
+      "evidence_against": ["ad_004", "ad_007", "ad_013"],
+      "exceptions": [],
+      "exception_note": "Dialogue-driven ads (Zomato, Cadbury, Tata Tea) do not work sound-off. Acceptable for YouTube but risky for Meta.",
+      "frequency": "4/13 explicitly sound-off ready",
+      "confidence": "emerging",
+      "mechanism": "85% of Meta feed videos watched without sound. Audio-dependent ads lose majority of feed impressions."
+    },
+    {
+      "id": "D1",
+      "name": "Commodity-to-Emotion Reframe",
+      "category": "downloads",
+      "description": "Transform a commodity product into an emotional choice by attaching meaning beyond functional specs.",
+      "primary_metric": "downloads",
+      "evidence_for": ["ad_012", "ad_006", "ad_001", "ad_010", "ad_007"],
+      "evidence_against": [],
+      "exceptions": [],
+      "exception_note": "",
+      "frequency": "5/13",
+      "confidence": "moderate",
+      "mechanism": "When products are functionally interchangeable, purchase decisions shift to emotional territory: trust, identity, feeling."
+    },
+    {
+      "id": "D2",
+      "name": "Family as Protagonist",
+      "category": "downloads",
+      "description": "Place the family unit (parents + kids, 4-5 members) at the center for household products.",
+      "primary_metric": "downloads",
+      "evidence_for": ["ad_011", "ad_012", "ad_013", "ad_007", "ad_001", "ad_010"],
+      "evidence_against": [],
+      "exceptions": [],
+      "exception_note": "",
+      "frequency": "6/13",
+      "confidence": "moderate",
+      "mechanism": "Broadband is a household purchase. The decision-maker (parent) sees their family reflected. Kids create emotional stakes."
+    },
+    {
+      "id": "D3",
+      "name": "Celebrity as Voice, Not Face",
+      "category": "downloads",
+      "description": "Celebrity endorsements work when the celebrity embodies the brand voice, not just lends their face.",
+      "primary_metric": "downloads",
+      "evidence_for": ["ad_004", "ad_011", "ad_001"],
+      "evidence_against": [],
+      "exceptions": [],
+      "exception_note": "",
+      "frequency": "3/13",
+      "confidence": "emerging",
+      "mechanism": "Generic celebrity endorsement triggers ad-skepticism. Persona-aligned celebrity creates authentic communication."
+    }
+  ],
+  "anti_patterns": [
+    {
+      "id": "X1",
+      "name": "Brand-First Opening",
+      "description": "Opening with logo animation, brand jingle, or brand name before any story/hook.",
+      "evidence": "0 of 13 best-in-class ads open with standalone logo animation.",
+      "severity": "high"
+    },
+    {
+      "id": "X2",
+      "name": "Speed-Test Advertising",
+      "description": "ISP ads that lead with speed numbers, tech specs, or buffer-wheel imagery.",
+      "evidence": "The only ISP ad in the library (Airtel Xstream) never mentions speed once.",
+      "severity": "high"
+    },
+    {
+      "id": "X3",
+      "name": "Flat Energy / No Pattern Interrupt",
+      "description": "Ads that maintain the same tone, pace, and energy throughout without any shift.",
+      "evidence": "All 13 ads have documented pace changes and pattern interrupts.",
+      "severity": "medium"
+    },
+    {
+      "id": "X4",
+      "name": "Generic CTA",
+      "description": "CTAs that could be appended to any ad from any brand. Learn More. Visit Website.",
+      "evidence": "Strongest CTAs are narrative-connected. None of the top ads use generic CTAs.",
+      "severity": "medium"
+    },
+    {
+      "id": "X5",
+      "name": "Cultural Tone-Deafness",
+      "description": "Missing the cultural register of the target audience. Too urban, too English, too preachy.",
+      "evidence": "Strongest ads precisely match cultural register: Meesho (Tier 2-3 Hindi), Tata Tea (family debate).",
+      "severity": "high"
+    }
+  ],
+  "scoring_rubric": {
+    "dimensions": {
+      "hook": {
+        "weight": 0.30,
+        "scores": {
+          "5": "Relatable moment, visual surprise, or curiosity gap. No brand-first. Matches C1+C2.",
+          "4": "Strong hook, minor issue (slightly slow or early brand without creative justification).",
+          "3": "Decent but no top pattern match. Functional not compelling.",
+          "2": "Weak hook. Partially matches anti-pattern X1 or X2.",
+          "1": "Logo animation opener. Speed claims first. Matches X1 or X2."
+        }
+      },
+      "retention": {
+        "weight": 0.25,
+        "scores": {
+          "5": "Uses curiosity engine C2. Pattern interrupt at midpoint C4. No flat zone.",
+          "4": "Strong retention with clear pace changes. Minor flat zone.",
+          "3": "Watchable but no compelling reason to stay past 50%.",
+          "2": "Flat energy. Predictable. Likely drops at 15s.",
+          "1": "No retention mechanic. Same energy throughout. Matches X3."
+        }
+      },
+      "ctr_drivers": {
+        "weight": 0.20,
+        "scores": {
+          "5": "Story leads to action K1. Sound-off works K2. CTA narrative-connected.",
+          "4": "Strong but one gap (sound-off or CTA slightly disconnected).",
+          "3": "Functional. Product clear, CTA exists, no narrative drive.",
+          "2": "Product unclear until end. Generic CTA. No sound-off design.",
+          "1": "No reason to click. CTA afterthought. Matches X4."
+        }
+      },
+      "cta_conversion": {
+        "weight": 0.15,
+        "scores": {
+          "5": "Specific CTA tied to objective. Earned by narrative. Urgency present. Low friction.",
+          "4": "Good CTA, minor issue (late timing or weak urgency).",
+          "3": "Generic but present. Learn more without specificity.",
+          "2": "CTA disconnected or buried. No urgency.",
+          "1": "No CTA or completely generic."
+        }
+      },
+      "brand_coherence": {
+        "weight": 0.10,
+        "scores": {
+          "5": "Distinctive voice/aesthetic. Brand enhances creative. Intentional logo placement.",
+          "4": "Consistent voice. Appropriate placement. Minor inconsistency.",
+          "3": "Brand present but generic. Could be any competitor with logo swap.",
+          "2": "Brand feels forced or interrupts creative flow.",
+          "1": "No coherence. Logo slapped on. No distinctive voice."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Improvement Suggestions",
+  "type": "object",
+  "required": ["ad_id", "overall_score", "suggestions", "keep", "coherence_check", "next_step"],
+  "properties": {
+    "ad_id": { "type": "string" },
+    "context_id": { "type": ["string", "null"] },
+    "version": { "type": "integer", "minimum": 1 },
+    "overall_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "priority", "affects_metric", "current", "pattern_says", "suggested_change", "why_it_works", "reference_ad_id", "reference_note", "impact_confidence"],
+        "properties": {
+          "dimension": { "type": "string" },
+          "priority": { "type": "string", "enum": ["high", "medium", "low"] },
+          "affects_metric": { "type": "string", "enum": ["video_completion", "ctr", "downloads", "bookings"] },
+          "current": { "type": "string", "minLength": 20 },
+          "pattern_says": { "type": "string", "minLength": 20 },
+          "suggested_change": { "type": "string", "minLength": 30 },
+          "why_it_works": { "type": "string", "minLength": 20 },
+          "reference_ad_id": { "type": "string" },
+          "reference_note": { "type": "string", "minLength": 10 },
+          "impact_confidence": { "type": "string", "enum": ["high", "medium", "low"] }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 5
+    },
+    "brief_alignment_suggestions": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "required": ["brief_dimension", "gap", "suggested_change"],
+        "properties": {
+          "brief_dimension": { "type": "string", "enum": ["audience_match", "message_delivery", "tone_match", "usp_clarity", "desired_action_driven"] },
+          "gap": { "type": "string", "minLength": 20 },
+          "suggested_change": { "type": "string", "minLength": 20 }
+        }
+      }
+    },
+    "keep": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "coherence_check": { "type": "string", "minLength": 20 },
+    "next_step": { "type": "string", "minLength": 10 }
+  },
+  "additionalProperties": false
+}

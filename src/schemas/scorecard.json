@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wiom Ad Scorecard",
+  "type": "object",
+  "required": ["ad_id", "date_reviewed", "campaign_objective", "weight_profile", "dimensions", "overall_score", "anti_patterns_triggered", "strengths", "priority_gaps"],
+  "properties": {
+    "ad_id": { "type": "string" },
+    "context_id": { "type": ["string", "null"] },
+    "version": { "type": "integer", "minimum": 1 },
+    "date_reviewed": { "type": "string", "format": "date" },
+    "campaign_objective": { "type": "string", "enum": ["awareness", "completion", "click", "traffic", "app_download", "conversion", "booking", "default"] },
+    "weight_profile": {
+      "type": "object",
+      "required": ["hook", "retention", "ctr_drivers", "cta_conversion", "brand_coherence"],
+      "properties": {
+        "hook": { "type": "number" },
+        "retention": { "type": "number" },
+        "ctr_drivers": { "type": "number" },
+        "cta_conversion": { "type": "number" },
+        "brand_coherence": { "type": "number" }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "required": ["hook", "retention", "ctr_drivers", "cta_conversion", "brand_coherence"],
+      "properties": {
+        "hook": { "$ref": "#/$defs/dimension_score" },
+        "retention": { "$ref": "#/$defs/dimension_score" },
+        "ctr_drivers": { "$ref": "#/$defs/dimension_score" },
+        "cta_conversion": { "$ref": "#/$defs/dimension_score" },
+        "brand_coherence": { "$ref": "#/$defs/dimension_score" }
+      }
+    },
+    "brief_alignment": {
+      "type": ["object", "null"],
+      "properties": {
+        "audience_match": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "audience_match_note": { "type": "string" },
+        "message_delivery": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "message_delivery_note": { "type": "string" },
+        "tone_match": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "tone_match_note": { "type": "string" },
+        "usp_clarity": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "usp_clarity_note": { "type": "string" },
+        "desired_action_driven": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "desired_action_driven_note": { "type": "string" },
+        "overall_brief_score": { "type": "number", "minimum": 0, "maximum": 100 }
+      },
+      "required": ["audience_match", "message_delivery", "tone_match", "usp_clarity", "desired_action_driven", "overall_brief_score"]
+    },
+    "overall_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "anti_patterns_triggered": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "strengths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "priority_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "impact_score", "description"],
+        "properties": {
+          "dimension": { "type": "string" },
+          "impact_score": { "type": "number" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "dimension_score": {
+      "type": "object",
+      "required": ["score", "what_ad_does", "pattern_match", "gap", "reference_ad_id"],
+      "properties": {
+        "score": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "what_ad_does": { "type": "string", "minLength": 10 },
+        "pattern_match": { "type": "string" },
+        "gap": { "type": "string" },
+        "reference_ad_id": { "type": ["string", "null"] }
+      }
+    }
+  },
+  "additionalProperties": false
+}

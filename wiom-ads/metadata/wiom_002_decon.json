@@ -1,0 +1,73 @@
+{
+  "ad_id": "wiom_002",
+  "hook": {
+    "type": "question",
+    "face_first_frame": true,
+    "text_overlay_first_frame": false,
+    "brand_visible_3s": false,
+    "audio_hook": "voiceover",
+    "language": "Hindi",
+    "effectiveness_note": "The hook is effective in grabbing attention due to the multi-character emotional scene and the question 'kya hua iss ghar mein?' which creates curiosity. However, the brand is not visible in the first 3 seconds, which might make it difficult for viewers to associate the ad with Wiom."
+  },
+  "narrative": {
+    "arc_type": "problem_solution",
+    "tension_payoff": "buildup",
+    "num_scenes": 1,
+    "effectiveness_note": "The narrative is concise and focused on a single scene, which helps to build tension and create a sense of conflict. However, the problem is not fully resolved in the 16-second ad, which might leave viewers wondering what happens next."
+  },
+  "pacing": {
+    "duration_bucket": "15s",
+    "cuts_per_15s": 5,
+    "pace_changes": [
+      "0s: introduction of characters",
+      "5s: question is asked"
+    ],
+    "pattern_interrupts": [
+      "emotional music starts playing"
+    ],
+    "retention_note": "The pacing is fast and engaging, with multiple cuts and a mix of close-up and wide shots. However, the ad ends abruptly, which might make it difficult for viewers to retain the message."
+  },
+  "audio": {
+    "music_type": "original_score",
+    "voiceover": true,
+    "voiceover_tone": "emotional",
+    "language": "Hindi",
+    "music_visual_sync": true,
+    "audio_note": "The music is emotive and complements the on-screen action. The voiceover is clear and easy to understand, but the tone is somewhat dramatic, which might not appeal to all viewers."
+  },
+  "visual": {
+    "talent_type": "actor",
+    "production_quality": "high",
+    "text_overlay_density": "none",
+    "color_mood": "muted",
+    "product_visibility": "absent_until_cta",
+    "visual_note": "The visuals are high-quality and well-produced, with a muted color palette that adds to the emotional tone. However, the product is not visible until the CTA, which might make it difficult for viewers to understand the relevance of the ad."
+  },
+  "cta": {
+    "type": "learn_more",
+    "timing": "late",
+    "visual_treatment": "text_overlay",
+    "urgency_element": "none",
+    "cta_note": "The CTA is clear and visible, but it appears late in the ad, which might make it difficult for viewers to take action. Additionally, there is no urgency element, which might reduce the likelihood of viewers clicking on the CTA."
+  },
+  "brand": {
+    "logo_presence": "end_card_only",
+    "brand_first_named_seconds": 12,
+    "brand_voice_consistent": true,
+    "brand_note": "The brand logo is only visible at the end of the ad, which might make it difficult for viewers to associate the ad with Wiom. However, the brand voice is consistent throughout the ad, which helps to build recognition."
+  },
+  "emotional": {
+    "primary_emotion": "relatability",
+    "cultural_specificity": [
+      "Indian family dynamics"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "The ad taps into the cultural specificity of Indian family dynamics, which makes it relatable to the target audience. However, the use of only Hindi might limit the ad's appeal to non-Hindi speaking viewers."
+  },
+  "x_factor": "The ad's use of a multi-character emotional scene and a question to create curiosity is a unique and effective way to grab attention and build tension. However, the ad's abrupt ending and lack of product visibility until the CTA are weaknesses that need to be addressed.",
+  "lessons_for_wiom": [
+    "Use a clearer and more concise narrative to resolve the problem within the ad",
+    "Make the product visible earlier in the ad to help viewers understand its relevance",
+    "Use a more prominent and consistent brand logo throughout the ad to build recognition"
+  ]
+}

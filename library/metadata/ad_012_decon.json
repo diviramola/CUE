@@ -1,0 +1,75 @@
+{
+  "ad_id": "ad_012",
+  "hook": {
+    "type": "relatable_moment",
+    "face_first_frame": true,
+    "text_overlay_first_frame": false,
+    "brand_visible_3s": false,
+    "audio_hook": "dialogue",
+    "language": "Hindi",
+    "effectiveness_note": "Opens with a kid doing something messy — every parent instantly relates. The immediate thought is 'my kid does this too.' The hook is not the stain; it is the parental recognition. The viewer is hooked because they see their own family."
+  },
+  "narrative": {
+    "arc_type": "problem_solution",
+    "tension_payoff": "buildup",
+    "num_scenes": 5,
+    "effectiveness_note": "The narrative subverts the expected problem-solution: the 'problem' (stain) is reframed as a 'badge' (the kid did something good). The 'solution' is not the detergent but the parent's realization. This double-layer narrative is why the campaign has endured for 15 plus years. The detergent is secondary to the parenting story."
+  },
+  "pacing": {
+    "duration_bucket": "30s",
+    "cuts_per_15s": 3,
+    "pace_changes": [
+      "0-10s: kid gets stained doing something sweet/brave",
+      "10-25s: parent discovers and initially reacts",
+      "25-35s: parent understands, emotional payoff",
+      "35-45s: product and tagline"
+    ],
+    "pattern_interrupts": [
+      "15s: parent's initial worried reaction creates a moment of tension — will they scold the kid?"
+    ],
+    "retention_note": "The parental tension (will they be angry or proud?) is a natural retention mechanism. Every parent recognizes this fork in the road. The emotional resolution (pride, not anger) is deeply satisfying and keeps people watching through the product message."
+  },
+  "audio": {
+    "music_type": "original_score",
+    "voiceover": true,
+    "voiceover_tone": "emotional",
+    "language": "Hindi",
+    "music_visual_sync": false,
+    "audio_note": "Gentle, emotional score that swells at the realization moment. The voiceover delivers 'Daag Acche Hain' as a tagline-turned-philosophy. The audio layer is warm and reassuring — it sounds like being hugged. For parents, this audio tone hits directly in the heart."
+  },
+  "visual": {
+    "talent_type": "actor",
+    "production_quality": "high",
+    "text_overlay_density": "none",
+    "color_mood": "bright",
+    "product_visibility": "reveal_moment",
+    "visual_note": "Bright, warm colors. Real-looking middle-class homes, school uniforms, playgrounds. The visual world is aspirational but achievable — the home is nice but not rich. The kid looks like every kid. The visual strategy is 'your family, slightly idealized.' Product appears only after the emotional payoff."
+  },
+  "cta": {
+    "type": "other",
+    "timing": "late",
+    "visual_treatment": "voiceover_only",
+    "urgency_element": "none",
+    "cta_note": "No hard CTA. 'Daag Acche Hain' is both the tagline and the call to action — it reframes stains from negative to positive, which is the only persuasion needed. If you believe stains are okay, you need a detergent that handles them. Implicit logic, no explicit ask."
+  },
+  "brand": {
+    "logo_presence": "end_card_only",
+    "brand_first_named_seconds": 35,
+    "brand_voice_consistent": true,
+    "brand_note": "Surf Excel has earned the right to delay brand reveal through 15 plus years of consistent 'Daag Acche Hain' campaigns. The emotional territory is so thoroughly owned that the tagline IS the brand. No other detergent can run this ad."
+  },
+  "emotional": {
+    "primary_emotion": "warmth",
+    "cultural_specificity": [
+      "family"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "Indian parenting culture puts enormous emphasis on clean clothes (especially school uniforms). A stained shirt is genuinely anxiety-inducing for Indian parents. The ad directly addresses this anxiety and offers a reframe: your kid's stained clothes prove they are brave and kind. This is therapeutic advertising."
+  },
+  "x_factor": "Daag Acche Hain is possibly the greatest Indian advertising idea of the 21st century. It did what no detergent ad had done: it made the stain the HERO. Every competitor says 'our detergent removes stains better.' Surf Excel says 'stains are good — and we will clean them after.' That repositioning of the entire category conversation is a masterclass in strategic creativity. The insight (parents feel guilty when kids get stained, but the stain often means the kid did something wonderful) is true, universal, and endlessly extensible.",
+  "lessons_for_wiom": [
+    "Reframe the negative: every ISP competes on 'fewer outages, faster speed.' What if Wiom reframed? 'Your kid spent 3 hours on a video call with grandma. That is 3 hours of love, powered by Wiom.' The usage (bandwidth) becomes the badge, just as the stain became the badge.",
+    "Commodity-to-emotion transformation is the ultimate brand strategy. Broadband is a commodity. Wiom's creative must attach emotional meaning to the product beyond specs. What does reliable internet MEAN for a family? That is the creative territory.",
+    "Family-as-protagonist with kids at the center is the most effective format for household products in India. Wiom should build campaigns around what kids DO with internet (learn, create, connect with family) not what the internet IS (fast, reliable)."
+  ]
+}

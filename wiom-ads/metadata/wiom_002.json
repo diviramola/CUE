@@ -1,0 +1,19 @@
+{
+  "id": "wiom_002",
+  "advertiser": "Wiom",
+  "campaign": "Wiom_Dance",
+  "platform": "Meta",
+  "format": "video",
+  "duration_seconds": 16,
+  "language": "Hindi",
+  "source": "upload",
+  "date_found": "2026-03-30",
+  "date_published": "2026-03",
+  "vertical": "ISP/broadband",
+  "region": "India",
+  "description": "Dance opens with a multi-character emotional scene: a tense father (arms crossed), a worried mother (sitting on\r\nbed), and a teenage daughter entering the frame. Within 1 second, the viewer sees three faces, visible family\r\ntension, and a question: kya hua iss ghar mein? On a social feed, faces + visible emotion + multi-character conflict\r\nis the strongest scroll-stop formula.",
+  "tags": [],
+  "frames_path": "wiom-ads/frames/wiom_002/",
+  "video_filename": "Wiom_Dance_-_1x1_HS.mp4",
+  "deconstructed": true
+}

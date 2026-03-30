@@ -1,0 +1,81 @@
+{
+  "ad_id": "wiom_002",
+  "context_id": null,
+  "version": 1,
+  "date_reviewed": "2026-03-30",
+  "campaign_objective": "default",
+  "weight_profile": {
+    "hook": 0.3,
+    "retention": 0.25,
+    "ctr_drivers": 0.2,
+    "cta_conversion": 0.15,
+    "brand_coherence": 0.1
+  },
+  "dimensions": {
+    "hook": {
+      "score": 5,
+      "what_ad_does": "Opens with a multi-character emotional scene and a question to create curiosity",
+      "pattern_match": "C1 Open with Recognition, Not Brand",
+      "gap": "None",
+      "reference_ad_id": null
+    },
+    "retention": {
+      "score": 4,
+      "what_ad_does": "Builds tension and creates a sense of conflict with a concise narrative",
+      "pattern_match": "C2 Curiosity Engine — Open Loops and Escalation",
+      "gap": "Abrupt ending might reduce retention",
+      "reference_ad_id": null
+    },
+    "ctr_drivers": {
+      "score": 4,
+      "what_ad_does": "Uses a mix of close-up and wide shots, and emotional music to engage viewers",
+      "pattern_match": "K2 Sound-Off Survivability",
+      "gap": "Lack of clear product visibility might reduce CTR",
+      "reference_ad_id": null
+    },
+    "cta_conversion": {
+      "score": 3,
+      "what_ad_does": "Clear and visible CTA, but appears late in the ad",
+      "pattern_match": "K1 Earned CTA — Story Logic Leads to Action",
+      "gap": "Late CTA and lack of urgency element might reduce conversion",
+      "reference_ad_id": null
+    },
+    "brand_coherence": {
+      "score": 3,
+      "what_ad_does": "Consistent brand voice, but logo is only visible at the end of the ad",
+      "pattern_match": "D1 Commodity-to-Emotion Reframe",
+      "gap": "Inconsistent brand logo visibility might reduce recognition",
+      "reference_ad_id": null
+    }
+  },
+  "overall_score": 81.0,
+  "anti_patterns_triggered": [
+    {
+      "name": "X3 Flat Energy / No Pattern Interrupt",
+      "description": "Abrupt ending without a clear resolution"
+    }
+  ],
+  "strengths": [
+    "Effective hook with a multi-character emotional scene and a question",
+    "Concise narrative that builds tension and creates a sense of conflict",
+    "Emotional music and mix of close-up and wide shots engage viewers"
+  ],
+  "priority_gaps": [
+    {
+      "dimension": "retention",
+      "impact_score": 8,
+      "description": "Abrupt ending might reduce retention, consider adding a clearer resolution"
+    },
+    {
+      "dimension": "ctr_drivers",
+      "impact_score": 6,
+      "description": "Lack of clear product visibility might reduce CTR, consider making product visible earlier in the ad"
+    },
+    {
+      "dimension": "cta_conversion",
+      "impact_score": 7,
+      "description": "Late CTA and lack of urgency element might reduce conversion, consider making CTA more prominent and adding an urgency element"
+    }
+  ],
+  "brief_alignment": null
+}

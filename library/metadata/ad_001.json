@@ -1,0 +1,26 @@
+{
+  "id": "ad_001",
+  "advertiser": "Airtel Xstream Fiber",
+  "platform": "YouTube",
+  "format": "TVC",
+  "duration_seconds": 45,
+  "language": "Hindi + 8 regional languages",
+  "url": "https://www.airtel.in/press-release/03-2024/airtel-xstream-fiber-transforms-home-entertainment-with-its-brand-new-campaign",
+  "source": "web_search",
+  "date_found": "2026-03-28",
+  "date_published": "2024-03",
+  "vertical": "ISP/broadband",
+  "region": "India",
+  "tier": null,
+  "tier_notes": "",
+  "description": "360-degree campaign where characters from popular entertainment shows burst onto screen with catchy soundtrack. Multi-lingual in 9 languages. Positions Xstream Fiber as ultimate big-screen entertainment solution.",
+  "why_included": "Direct ISP competitor. Multi-lingual approach relevant to Wiom. Entertainment-as-hook strategy for broadband is the dominant playbook in Indian ISP ads.",
+  "tags": [
+    "entertainment-hook",
+    "multi-lingual",
+    "celebrity",
+    "broadband",
+    "problem-solution"
+  ],
+  "deconstructed": true
+}

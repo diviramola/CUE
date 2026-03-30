@@ -1,0 +1,76 @@
+{
+  "ad_id": "ad_004",
+  "hook": {
+    "type": "relatable_moment",
+    "face_first_frame": true,
+    "text_overlay_first_frame": false,
+    "brand_visible_3s": false,
+    "audio_hook": "dialogue",
+    "language": "Hinglish",
+    "effectiveness_note": "Opens with a recognizable Diwali meme/moment that millions of Indians have shared. Instant cultural recognition creates an in-group feeling: 'they get us.' Piyush Mishra's face is itself a hook — he signals dry wit and intelligence, setting expectations for satirical tone."
+  },
+  "narrative": {
+    "arc_type": "single_scene",
+    "tension_payoff": "buildup",
+    "num_scenes": 4,
+    "effectiveness_note": "Single-scene format with dialogue-driven humor. The build-up is in the escalating satire — each line gets sharper. Viewers stay for Piyush Mishra's delivery as much as the message. The narrative rewards patience, which is unusual for a 60s digital ad."
+  },
+  "pacing": {
+    "duration_bucket": "60s+",
+    "cuts_per_15s": 3,
+    "pace_changes": [
+      "0-10s: scene setting",
+      "10-40s: satirical build",
+      "40-55s: payoff and pivot to brand",
+      "55-60s: CTA"
+    ],
+    "pattern_interrupts": [
+      "20s: unexpected satirical twist",
+      "40s: brand reveal pivot"
+    ],
+    "retention_note": "60 seconds is long for digital. Drop-off risk at 15-20s for viewers who do not connect with the satirical tone. Piyush Mishra's screen presence and delivery are the retention engine — you watch HIM, and the brand message comes along for the ride."
+  },
+  "audio": {
+    "music_type": "no_music",
+    "voiceover": false,
+    "voiceover_tone": null,
+    "language": "Hinglish",
+    "music_visual_sync": false,
+    "audio_note": "Dialogue-only format. No music means full focus on the words and delivery. This is a deliberate choice — Piyush Mishra's voice IS the audio production. His cadence, pauses, and intonation carry more emotion than any soundtrack. Silence between lines creates tension."
+  },
+  "visual": {
+    "talent_type": "actor",
+    "production_quality": "high",
+    "text_overlay_density": "none",
+    "color_mood": "bright",
+    "product_visibility": "absent_until_cta",
+    "visual_note": "Festive Diwali setting with warm lighting. High production quality but not flashy — the visual restraint lets Mishra's performance shine. No text overlays means this is designed for sound-ON viewing. Would lose most of its impact sound-off."
+  },
+  "cta": {
+    "type": "download_app",
+    "timing": "late",
+    "visual_treatment": "combined",
+    "urgency_element": "limited_time",
+    "cta_note": "Diwali-specific CTA with festive offers. Feels earned because the entire ad has been a Diwali cultural moment. The festival creates natural urgency without the ad needing to manufacture it. 'Order on Zomato this Diwali' connects the cultural moment to the action."
+  },
+  "brand": {
+    "logo_presence": "end_card_only",
+    "brand_first_named_seconds": 45,
+    "brand_voice_consistent": true,
+    "brand_note": "Zomato delays brand reveal until 45 seconds. Bold for a 60s ad. Works because Zomato has built a distinctive brand voice (witty, irreverent, culturally plugged in) that audiences recognize even before the logo appears. The satire IS Zomato's brand."
+  },
+  "emotional": {
+    "primary_emotion": "humor",
+    "cultural_specificity": [
+      "festival"
+    ],
+    "hinglish_level": "heavy_code_switching",
+    "cultural_note": "Diwali meme-jacking is high-risk high-reward. Get it right and you own the cultural conversation. Get it wrong and you are cringe. Zomato gets it right because they parody WITH the culture, not AT it. Heavy Hinglish code-switching signals urban millennial/GenZ — Zomato's core audience."
+  },
+  "x_factor": "Zomato has built a brand voice so distinctive that their ads work as entertainment FIRST, advertising second. The audience actively seeks out and shares Zomato ads — they have achieved the holy grail of ads that people WANT to watch. The casting of Piyush Mishra is inspired: he brings instant credibility to satirical content and elevates what could be a generic festive ad into a cultural commentary.",
+  "lessons_for_wiom": [
+    "Cultural moment-jacking requires a distinctive brand voice FIRST. Wiom needs to develop a voice (witty? warm? rebellious?) before trying to ride cultural moments, otherwise it feels like any-brand-Diwali-ad.",
+    "Celebrity casting should match brand tone, not just fame. Piyush Mishra works for Zomato's satire. Wiom should ask 'who embodies our voice?' not 'who is the most famous person we can afford?'",
+    "Long-form (60s) can work on digital IF the talent and writing are strong enough. But it requires sound-on viewing, which limits reach. Consider a 15s cut-down for feed plus the full 60s as a targeted view."
+  ]
+}

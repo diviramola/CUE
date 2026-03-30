@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Optimization Report",
+  "description": "Live campaign optimization recommendations based on performance data vs scorecard predictions.",
+  "type": "object",
+  "required": ["opt_id", "ad_id", "context_id", "generated_at", "performance_summary", "scorecard_comparison", "fatigue_assessment", "recommendations", "next_check_date"],
+  "properties": {
+    "opt_id": { "type": "string", "pattern": "^opt_\\d{3,}$" },
+    "ad_id": { "type": "string" },
+    "context_id": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "performance_summary": {
+      "type": "object",
+      "required": ["days_live", "total_impressions", "trend"],
+      "properties": {
+        "days_live": { "type": "integer" },
+        "total_impressions": { "type": "integer" },
+        "trend": { "type": "string", "enum": ["improving", "stable", "declining", "insufficient_data"] },
+        "scorecard_predicted_weaknesses": { "type": "array", "items": { "type": "string" } },
+        "actual_weaknesses": { "type": "array", "items": { "type": "string" } },
+        "prediction_accuracy": { "type": "string", "enum": ["high", "medium", "low", "insufficient_data"] }
+      }
+    },
+    "scorecard_comparison": {
+      "type": "object",
+      "description": "Maps each scorecard dimension to actual performance signals",
+      "properties": {
+        "hook": { "$ref": "#/$defs/prediction_check" },
+        "retention": { "$ref": "#/$defs/prediction_check" },
+        "ctr_drivers": { "$ref": "#/$defs/prediction_check" },
+        "cta_conversion": { "$ref": "#/$defs/prediction_check" },
+        "brand_coherence": { "$ref": "#/$defs/prediction_check" }
+      }
+    },
+    "fatigue_assessment": {
+      "type": "object",
+      "required": ["status", "evidence"],
+      "properties": {
+        "status": { "type": "string", "enum": ["no_fatigue", "early_signs", "fatiguing", "fatigued"] },
+        "evidence": { "type": "string" },
+        "estimated_remaining_days": { "type": ["integer", "null"] }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "priority", "action", "rationale", "requires_human_approval"],
+        "properties": {
+          "type": { "type": "string", "enum": ["targeting", "placement", "bid_strategy", "creative_refresh", "budget", "pause"] },
+          "priority": { "type": "string", "enum": ["immediate", "this_week", "next_cycle"] },
+          "action": { "type": "string", "minLength": 20 },
+          "rationale": { "type": "string", "minLength": 20 },
+          "requires_human_approval": { "type": "boolean" }
+        }
+      }
+    },
+    "next_check_date": { "type": "string" }
+  },
+  "$defs": {
+    "prediction_check": {
+      "type": "object",
+      "required": ["scorecard_score", "predicted_impact", "actual_signal", "verdict"],
+      "properties": {
+        "scorecard_score": { "type": "integer" },
+        "predicted_impact": { "type": "string" },
+        "actual_signal": { "type": "string" },
+        "verdict": { "type": "string", "enum": ["confirmed", "partially_confirmed", "contradicted", "no_data"] }
+      }
+    }
+  },
+  "additionalProperties": false
+}

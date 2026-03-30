@@ -1,0 +1,75 @@
+{
+  "ad_id": "ad_002",
+  "hook": {
+    "type": "visual_surprise",
+    "face_first_frame": true,
+    "text_overlay_first_frame": false,
+    "brand_visible_3s": false,
+    "audio_hook": "music_hit",
+    "language": "Hindi",
+    "effectiveness_note": "Opens with someone doing something physically extreme — immediately bizarre and unexpected. The brain cannot ignore incongruity. You HAVE to watch for 2 more seconds to understand what is happening. Classic curiosity gap via visual absurdity."
+  },
+  "narrative": {
+    "arc_type": "montage",
+    "tension_payoff": "front_loaded",
+    "num_scenes": 6,
+    "effectiveness_note": "Each scene escalates the absurdity — running becomes wrestling becomes swimming. Escalation ladder keeps raising stakes. The viewer thinks 'it can't get more ridiculous' and then it does. Each scene is a mini punchline that resets the curiosity for the next."
+  },
+  "pacing": {
+    "duration_bucket": "30s",
+    "cuts_per_15s": 8,
+    "pace_changes": [
+      "0-5s: immediate high energy",
+      "10-20s: rapid escalation",
+      "25-30s: product reveal + brand"
+    ],
+    "pattern_interrupts": [
+      "Every new extreme scenario is a pattern interrupt — you never know what absurd activity comes next"
+    ],
+    "retention_note": "Extremely fast cuts prevent drop-off. No single scene lasts long enough to lose interest. The escalation structure creates a 'what next?' loop. Risk: some viewers may tune out if the humor does not land — exaggeration comedy is polarizing."
+  },
+  "audio": {
+    "music_type": "trending",
+    "voiceover": false,
+    "voiceover_tone": null,
+    "language": "Hindi",
+    "music_visual_sync": true,
+    "audio_note": "Upbeat music drives the energy. No voiceover means the visual comedy carries the message entirely — this works well for sound-off environments (Instagram/Facebook feed). Music syncs with action cuts for satisfying rhythm."
+  },
+  "visual": {
+    "talent_type": "actor",
+    "production_quality": "mid",
+    "text_overlay_density": "minimal",
+    "color_mood": "bright",
+    "product_visibility": "reveal_moment",
+    "visual_note": "Deliberately mid-production — the slightly rough quality makes the exaggeration funnier. High-polish would make it feel like a car ad trying too hard. The lo-fi energy matches the D2C brand personality. Designed to work sound-off: the visual comedy is self-explanatory."
+  },
+  "cta": {
+    "type": "shop",
+    "timing": "late",
+    "visual_treatment": "text_overlay",
+    "urgency_element": "none",
+    "cta_note": "Brand and product reveal at the end. The CTA is implicit — the entire ad makes you curious about the drink. No hard sell, which fits the humor-first strategy. Risk: viewers may enjoy the comedy but not connect it to the product."
+  },
+  "brand": {
+    "logo_presence": "end_card_only",
+    "brand_first_named_seconds": 25,
+    "brand_voice_consistent": true,
+    "brand_note": "Brand reveal delayed until the end. This is bold for a challenger brand — they bet that the humor is memorable enough that the punchline (product) lands. For an established brand this would be risky, but for Lahori Zeera trying to break through clutter, the entertainment-first approach is correct."
+  },
+  "emotional": {
+    "primary_emotion": "humor",
+    "cultural_specificity": [
+      "youth_culture",
+      "urban/rural"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "Exaggeration humor is universal but the physical comedy style is very Bollywood-influenced — slapstick with a wink. Appeals across class and geography. The drink itself is a mass-market product, so the humor needs to be broad, not niche. It delivers."
+  },
+  "x_factor": "The escalation structure is deceptively simple but incredibly effective for retention. Each scene is funnier than the last, creating a dopamine ladder. You cannot stop watching because your brain predicts the next hit. This is the same mechanic that makes TikTok addictive, compressed into a 30-second ad. The restraint of saving brand reveal until the end shows confidence in the creative.",
+  "lessons_for_wiom": [
+    "Escalation ladders work for retention: Wiom could show increasingly ridiculous scenarios of life WITHOUT good internet (video call freezing at worse and worse moments) — each funnier than the last, building to the punchline.",
+    "Sound-off friendly design is critical for Meta/Instagram: if the humor works visually without audio, you capture the 85 percent who scroll with sound off.",
+    "Mid-production quality can be an asset for D2C/challenger brands — it signals authenticity and relatability versus the polished corporate feel of Jio/Airtel ads."
+  ]
+}

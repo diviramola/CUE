@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Performance Data Snapshot",
+  "description": "Point-in-time performance reading for a live campaign. Multiple snapshots per ad enable trend analysis.",
+  "type": "object",
+  "required": ["perf_id", "ad_id", "context_id", "snapshot_date", "metrics"],
+  "properties": {
+    "perf_id": { "type": "string", "pattern": "^perf_\\d{3,}$" },
+    "ad_id": { "type": "string" },
+    "context_id": { "type": "string" },
+    "snapshot_date": { "type": "string" },
+    "days_live": { "type": "integer", "minimum": 0 },
+    "metrics": {
+      "type": "object",
+      "required": ["impressions"],
+      "properties": {
+        "impressions": { "type": "integer", "minimum": 0 },
+        "reach": { "type": ["integer", "null"] },
+        "video_views": { "type": ["integer", "null"] },
+        "video_completion_rate": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "hook_rate_3s": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "hold_rate_15s": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "ctr": { "type": ["number", "null"], "minimum": 0 },
+        "cpc": { "type": ["number", "null"], "minimum": 0 },
+        "cpm": { "type": ["number", "null"], "minimum": 0 },
+        "conversions": { "type": ["integer", "null"], "minimum": 0 },
+        "conversion_rate": { "type": ["number", "null"], "minimum": 0 },
+        "cost_per_conversion": { "type": ["number", "null"], "minimum": 0 },
+        "spend": { "type": ["number", "null"], "minimum": 0 },
+        "frequency": { "type": ["number", "null"], "minimum": 0 }
+      }
+    },
+    "platform_data": {
+      "type": ["object", "null"],
+      "description": "Raw platform-specific fields preserved for reference"
+    }
+  },
+  "additionalProperties": false
+}

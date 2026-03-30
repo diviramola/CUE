@@ -1,0 +1,12 @@
+{
+  "context_id": "ctx_002",
+  "ad_id": "wiom_002",
+  "created_at": "2026-03-30T17:30:11.112451",
+  "objective": {
+    "type": "app_download",
+    "primary_kpi": null,
+    "secondary_kpi": null
+  },
+  "brief": null,
+  "targeting": null
+}

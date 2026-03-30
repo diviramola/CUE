@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CUE Campaign Mapping",
+  "description": "Maps CUE ad IDs to Meta/YouTube campaign and ad IDs for automated performance pulls.",
+  "type": "object",
+  "required": ["ad_id", "platform"],
+  "properties": {
+    "ad_id": {
+      "type": "string",
+      "description": "CUE ad ID (e.g., wiom_001)"
+    },
+    "platform": {
+      "type": "string",
+      "enum": ["meta", "youtube"]
+    },
+    "meta_ad_id": {
+      "type": "string",
+      "description": "Meta numeric ad ID"
+    },
+    "meta_campaign_id": {
+      "type": "string",
+      "description": "Meta campaign ID"
+    },
+    "meta_adset_id": {
+      "type": "string",
+      "description": "Meta ad set ID"
+    },
+    "youtube_video_id": {
+      "type": "string",
+      "description": "YouTube video ID"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "notes": {
+      "type": ["string", "null"]
+    }
+  }
+}

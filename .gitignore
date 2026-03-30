@@ -1,0 +1,18 @@
+# Credentials — never commit
+.env
+*.env
+credentials/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Uploads (large video files)
+wiom-ads/uploads/
+
+# Local output (regenerated at runtime)
+output/dashboard.html
+pipeline-state.json

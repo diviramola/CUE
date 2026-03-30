@@ -1,0 +1,72 @@
+{
+  "ad_id": "ad_003",
+  "hook": {
+    "type": "problem_statement",
+    "face_first_frame": false,
+    "text_overlay_first_frame": false,
+    "brand_visible_3s": true,
+    "audio_hook": "sound_effect",
+    "language": "Hindi",
+    "effectiveness_note": "In 6 seconds there is no scroll to stop — these are non-skippable bumpers. The hook IS the ad. Opens with a familiar household problem (squeaky hinge, stuck bolt) that triggers instant recognition. The sound effect of the problem (squeak, grind) is the audio hook."
+  },
+  "narrative": {
+    "arc_type": "problem_solution",
+    "tension_payoff": "front_loaded",
+    "num_scenes": 3,
+    "effectiveness_note": "Problem (1s) -> Product (2s) -> Payoff with humor (3s). Three-act structure compressed to 6 seconds. Works because the problem is universally understood — no setup needed. The humor in the payoff is the retention reward."
+  },
+  "pacing": {
+    "duration_bucket": "6s",
+    "cuts_per_15s": 12,
+    "pace_changes": [
+      "No pace changes possible in 6s — it is one continuous energy burst"
+    ],
+    "pattern_interrupts": [
+      "The punchline at 4-5s is the only interrupt needed"
+    ],
+    "retention_note": "At 6 seconds, retention is near 100 percent because these run as non-skippable pre-roll. The challenge is memorability, not retention. The humor punchline solves this — you remember the joke, which means you remember the product."
+  },
+  "audio": {
+    "music_type": "sound_effects_only",
+    "voiceover": false,
+    "voiceover_tone": null,
+    "language": "Hindi",
+    "music_visual_sync": true,
+    "audio_note": "Sound effects carry the entire narrative: squeak -> spray -> satisfying result sound. No music, no voiceover. The sounds ARE the story. This is brilliant for a utility product — the sound of the problem and solution is more persuasive than any words."
+  },
+  "visual": {
+    "talent_type": "no_talent",
+    "production_quality": "mid",
+    "text_overlay_density": "minimal",
+    "color_mood": "bright",
+    "product_visibility": "always_visible",
+    "visual_note": "Close-up product shots dominate. No talent needed — the product IS the protagonist. Simple visual language: problem object -> product -> fixed object. Designed for immediate comprehension. Works perfectly sound-off because the visual narrative is complete."
+  },
+  "cta": {
+    "type": "shop",
+    "timing": "late",
+    "visual_treatment": "text_overlay",
+    "urgency_element": "none",
+    "cta_note": "Product IS the CTA — showing it working is the entire pitch. End card with brand. No explicit call to action needed because the ad creates an 'I should get that' impulse through demonstrated utility."
+  },
+  "brand": {
+    "logo_presence": "always_visible",
+    "brand_first_named_seconds": 0,
+    "brand_voice_consistent": true,
+    "brand_note": "WD-40 can is visible throughout — the distinctive blue and yellow is instantly recognizable. Brand IS the product IS the solution. No separation between brand message and utility demonstration."
+  },
+  "emotional": {
+    "primary_emotion": "humor",
+    "cultural_specificity": [
+      "universal"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "Household problems are universal. A squeaky door is the same frustration in Mumbai and Memphis. The humor transcends culture. However, the specific use-cases chosen likely reflect Indian household scenarios to feel locally relevant."
+  },
+  "x_factor": "The series format is the genius. Eight ads means eight different use-cases, each one a potential moment of recognition for a different viewer. Together they position WD-40 as the universal fixer. The 6-second constraint forced the creative team to find the absolute essence of problem-solution storytelling. Nothing is wasted. Every frame earns its place. This is what advertising under constraint looks like at its best.",
+  "lessons_for_wiom": [
+    "6-second bumper series could work brilliantly for Wiom: 8 different buffering/slow-internet problems, each solved in 6 seconds. Family video call freezing, cricket stream buffering, kids homework not loading, mom recipe video stuck — one problem per bumper, build the series.",
+    "Sound design as narrative: the SOUND of buffering (that spinning wheel silence) versus the SOUND of fast internet (instant video play, crisp audio) could be Wiom's version of WD-40's squeak-to-fix audio storytelling.",
+    "Product-as-protagonist works when the product solves a tangible problem. Wiom router/app as the hero object appearing to fix each scenario."
+  ]
+}

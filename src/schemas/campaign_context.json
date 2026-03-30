@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Campaign Context",
+  "description": "Unified input context for review/suggest/optimize. Only objective.type is required.",
+  "type": "object",
+  "required": ["context_id", "ad_id", "created_at", "objective"],
+  "properties": {
+    "context_id": { "type": "string" },
+    "ad_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "objective": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["awareness", "completion", "click", "traffic", "app_download", "conversion", "booking", "default"]
+        },
+        "primary_kpi": { "type": ["string", "null"] },
+        "secondary_kpi": { "type": ["string", "null"] }
+      }
+    },
+    "brief": {
+      "type": ["object", "null"],
+      "properties": {
+        "target_audience": { "type": ["string", "null"] },
+        "key_message": { "type": ["string", "null"] },
+        "tone": { "type": ["string", "null"] },
+        "constraints": { "type": "array", "items": { "type": "string" } },
+        "usp": { "type": ["string", "null"] },
+        "desired_action": { "type": ["string", "null"] },
+        "brand_guidelines_notes": { "type": ["string", "null"] }
+      }
+    },
+    "targeting": {
+      "type": ["object", "null"],
+      "properties": {
+        "platform": { "type": ["string", "null"] },
+        "placements": { "type": "array", "items": { "type": "string" } },
+        "audience": {
+          "type": ["object", "null"],
+          "properties": {
+            "age_range": { "type": ["string", "null"] },
+            "gender": { "type": ["string", "null"] },
+            "geo": { "type": "array", "items": { "type": "string" } },
+            "interests": { "type": "array", "items": { "type": "string" } },
+            "tier": { "type": ["string", "null"] }
+          }
+        },
+        "budget_tier": { "type": ["string", "null"] },
+        "bid_strategy": { "type": ["string", "null"] }
+      }
+    }
+  },
+  "additionalProperties": false
+}

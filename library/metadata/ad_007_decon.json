@@ -1,0 +1,76 @@
+{
+  "ad_id": "ad_007",
+  "hook": {
+    "type": "curiosity_gap",
+    "face_first_frame": true,
+    "text_overlay_first_frame": false,
+    "brand_visible_3s": false,
+    "audio_hook": "dialogue",
+    "language": "Hindi",
+    "effectiveness_note": "Opens with a woman mid-conversation, clearly about to tell a story. The viewer's brain automatically wants to hear the story — narrative curiosity is one of the strongest psychological hooks. The setup implies a social situation (new neighbor) everyone can relate to."
+  },
+  "narrative": {
+    "arc_type": "single_scene",
+    "tension_payoff": "buildup",
+    "num_scenes": 3,
+    "effectiveness_note": "Single narrative thread with a slow burn to an emotional twist. The woman's internal conflict (how to include a non-local speaker) creates genuine tension. The payoff is emotional, not comedic. Viewers stay because they are invested in the human problem, not waiting for a product."
+  },
+  "pacing": {
+    "duration_bucket": "60s+",
+    "cuts_per_15s": 2,
+    "pace_changes": [
+      "0-15s: scenario setup, relaxed",
+      "15-40s: internal deliberation builds",
+      "40-55s: emotional resolution",
+      "55-60s: brand moment"
+    ],
+    "pattern_interrupts": [
+      "30s: the moment she makes her decision creates a subtle but powerful narrative gear shift"
+    ],
+    "retention_note": "Slow pace is a DELIBERATE choice — it builds emotional investment. Fast cuts would destroy the intimacy. Drop-off risk at 15s for impatient viewers, but those who stay past 20s will watch to the end because they are now emotionally committed to the character."
+  },
+  "audio": {
+    "music_type": "original_score",
+    "voiceover": false,
+    "voiceover_tone": null,
+    "language": "Hindi",
+    "music_visual_sync": false,
+    "audio_note": "Subtle background score that swells at the emotional moment. Dialogue-driven but unlike Zomato's dialogue (witty), this is warm and naturalistic. The music stays invisible until the payoff moment where it amplifies the emotion. Restraint in the audio makes the swell hit harder."
+  },
+  "visual": {
+    "talent_type": "actor",
+    "production_quality": "high",
+    "text_overlay_density": "none",
+    "color_mood": "bright",
+    "product_visibility": "absent_until_cta",
+    "visual_note": "Warm, intimate cinematography. Close-ups on faces during dialogue create connection. The visual language is more 'indie film' than 'ad' — deliberate choice to earn emotional credibility. Cadbury product appears only in the last moments, almost incidentally."
+  },
+  "cta": {
+    "type": "other",
+    "timing": "late",
+    "visual_treatment": "voiceover_only",
+    "urgency_element": "none",
+    "cta_note": "No explicit CTA. The ad is pure brand building — Cadbury equals warmth, inclusion, human connection. The Cadbury bar appearing in the final scene is the gentlest possible product integration. This is a premium brand strategy: build love, not clicks."
+  },
+  "brand": {
+    "logo_presence": "end_card_only",
+    "brand_first_named_seconds": 55,
+    "brand_voice_consistent": true,
+    "brand_note": "Cadbury delays brand appearance to 55 seconds in a 60 second ad. Only possible because decades of consistent brand voice have made Cadbury's emotional territory (warmth, sharing, connection) immediately recognizable. The audience feels 'this is a Cadbury ad' long before the logo appears."
+  },
+  "emotional": {
+    "primary_emotion": "warmth",
+    "cultural_specificity": [
+      "family",
+      "regional_identity"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "Language as inclusion/exclusion is deeply resonant in India where language divides are real and emotional. Moving to a new city where no one speaks your language is a lived experience for millions. The ad touches this nerve gently and offers Cadbury as a universal bridge. The cultural insight is profound."
+  },
+  "x_factor": "The power of this ad is restraint. In a world of 6-second bumpers and jump cuts, Cadbury bets on slow, quiet, emotionally honest storytelling. The twist is not a plot twist — it is an empathy twist. The woman does not just translate her story; she REIMAGINES it to include someone different. That act of creative empathy is the most human thing an ad has depicted in years. And it makes Cadbury feel like a brand that understands humanity, not just sells chocolate.",
+  "lessons_for_wiom": [
+    "Connectivity as inclusion: Wiom literally connects people. A story about internet enabling a family to stay connected across languages/regions/distances would be authentic and powerful. Not 'fast internet' but 'internet that keeps your family together.'",
+    "Restraint can be more powerful than spectacle. One quiet, true story about a family whose lives changed because of reliable internet would outperform ten flashy speed-test ads. But it requires confidence and craft.",
+    "Language diversity is Wiom's territory to own. In multi-lingual India, showing how internet bridges language gaps (translate, video call grandparents who speak a different language, kids learning in their mother tongue) is uniquely relevant."
+  ]
+}

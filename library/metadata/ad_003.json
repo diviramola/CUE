@@ -1,0 +1,27 @@
+{
+  "id": "ad_003",
+  "advertiser": "WD-40",
+  "platform": "YouTube",
+  "format": "Bumper",
+  "duration_seconds": 6,
+  "language": "Hindi",
+  "url": "https://www.linkedin.com/posts/karts_advertising-marketing-creativity-activity-7230073363967225856-KpHQ/",
+  "source": "web_search",
+  "date_found": "2026-03-28",
+  "date_published": "2024-08",
+  "vertical": "Consumer goods",
+  "region": "India",
+  "tier": null,
+  "tier_notes": "",
+  "description": "Series of eight 6-second bumper ads, each showcasing one product use-case with a humorous punchline. Extremely tight storytelling: problem-product-payoff in 6 seconds flat.",
+  "why_included": "Brilliant format efficiency. If you can tell a complete story in 6 seconds, you can nail any hook. The constraint forces creative excellence. Can Wiom do 6-second problem-solution bumpers?",
+  "tags": [
+    "6-second",
+    "bumper",
+    "humor",
+    "problem-solution",
+    "tight-edit",
+    "series"
+  ],
+  "deconstructed": true
+}

@@ -1,0 +1,26 @@
+{
+  "id": "ad_008",
+  "advertiser": "Colgate",
+  "platform": "YouTube",
+  "format": "In-Feed Video",
+  "duration_seconds": 30,
+  "language": "Hindi",
+  "url": "https://www.linkedin.com/posts/karts_advertising-marketing-creative-activity-7211582540191531008-5ATR/",
+  "source": "web_search",
+  "date_found": "2026-03-28",
+  "date_published": "2024-06",
+  "vertical": "FMCG/personal care",
+  "region": "India",
+  "tier": null,
+  "tier_notes": "",
+  "description": "Night brushing campaign. Playful approach where Colgate sells exciting food items to promote nighttime brushing habits. Inverts expectations: toothpaste brand selling food. Humor drives the message.",
+  "why_included": "Inversion pattern: using the unexpected to deliver a boring message. Can Wiom invert expectations? An ISP ad showing life WITHOUT internet to make you appreciate it. Pattern worth studying.",
+  "tags": [
+    "inversion",
+    "humor",
+    "unexpected-hook",
+    "behavior-change",
+    "FMCG"
+  ],
+  "deconstructed": true
+}

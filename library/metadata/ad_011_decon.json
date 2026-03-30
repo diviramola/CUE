@@ -1,0 +1,75 @@
+{
+  "ad_id": "ad_011",
+  "hook": {
+    "type": "visual_surprise",
+    "face_first_frame": true,
+    "text_overlay_first_frame": true,
+    "brand_visible_3s": true,
+    "audio_hook": "dialogue",
+    "language": "Hindi",
+    "effectiveness_note": "Kapil Sharma's face is an instant hook for the Tier 2-3 audience — he is India's most recognized comedy face in non-metro India. The 'Aise Kaise?' (How is this possible?) tagline in text immediately signals deals/offers. For the target audience, celebrity plus deals equals mandatory viewing."
+  },
+  "narrative": {
+    "arc_type": "demo",
+    "tension_payoff": "front_loaded",
+    "num_scenes": 5,
+    "effectiveness_note": "Series of scenarios where families discover prices so low they cannot believe it. Each scenario is a mini-demo of a product category (fashion, kidswear, home). The 'Aise Kaise?' reaction is the throughline. Works because it mirrors the real user experience of discovering Meesho's prices."
+  },
+  "pacing": {
+    "duration_bucket": "30s",
+    "cuts_per_15s": 6,
+    "pace_changes": [
+      "0-5s: celebrity hook",
+      "5-20s: rapid product showcases",
+      "20-30s: brand and sale details"
+    ],
+    "pattern_interrupts": [
+      "Each new product category with its shock-price reveal re-grabs attention"
+    ],
+    "retention_note": "Fast-paced deal montage keeps energy high. The 'Aise Kaise?' reaction after each reveal is a satisfying micro-payoff. Risk: at 30s of rapid-fire deals, it could feel like a QVC infomercial. The celebrity presence and humor prevent this."
+  },
+  "audio": {
+    "music_type": "original_score",
+    "voiceover": true,
+    "voiceover_tone": "energetic",
+    "language": "Hindi",
+    "music_visual_sync": true,
+    "audio_note": "Upbeat, festive music matching the sale energy. Kapil's voice and comic timing carry the humor. The 'Aise Kaise?' catchphrase is repeated with different intonations — surprise, disbelief, excitement. Music is functional: it creates urgency and festive energy."
+  },
+  "visual": {
+    "talent_type": "actor",
+    "production_quality": "mid",
+    "text_overlay_density": "heavy",
+    "color_mood": "bright",
+    "product_visibility": "always_visible",
+    "visual_note": "Bright, festive colors. Heavy price text overlays because the PRICE is the content — this is a sale ad, and the price must be readable. Products prominently displayed in every frame. Visual design is functional over artistic — clarity beats creativity for this audience and objective."
+  },
+  "cta": {
+    "type": "download_app",
+    "timing": "multiple",
+    "visual_treatment": "combined",
+    "urgency_element": "limited_time",
+    "cta_note": "Multiple CTAs: sale dates, app download, specific offers. For a sale campaign, multiple CTAs work because the urgency is real and time-bound. The festive context (Diwali shopping) means the audience is already in buying mode — the CTA is pushing an open door."
+  },
+  "brand": {
+    "logo_presence": "always_visible",
+    "brand_first_named_seconds": 2,
+    "brand_voice_consistent": true,
+    "brand_note": "Meesho brand prominent throughout. For a value/sale campaign, brand visibility is essential — you need to remember WHERE to get these deals. The orange brand color is woven into the festive visual palette. Celebrity and brand are co-equal in visibility."
+  },
+  "emotional": {
+    "primary_emotion": "aspiration",
+    "cultural_specificity": [
+      "festival",
+      "family"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "Festive shopping is a ritual for Indian families. The ad shows families (parents and kids together) discovering deals — this is the real Diwali shopping experience for lower-middle-class households. The emotional core is 'I can afford nice things for my family this festival.' That is deeply aspirational for the target segment."
+  },
+  "x_factor": "Meesho understands its audience better than almost any Indian brand. The ad does not try to be clever or award-winning. It is functionally perfect for lower-middle-class families in Tier 2-3 cities: celebrity they love, prices that shock them, products they want, a festival they are shopping for. The 'Aise Kaise?' catchphrase turns price into entertainment. The 100 percent Day 1 order increase proves this is not just good creative — it is effective creative. That distinction matters.",
+  "lessons_for_wiom": [
+    "For Tier 2-3 families, celebrity plus value is the proven formula. Wiom should consider a relatable celebrity (not Bollywood A-list but TV-famous like Kapil) paired with a clear value proposition (price per month, what you get).",
+    "Heavy text overlays work for deal-oriented content targeting lower-middle-class audiences. When the price IS the hook, make it huge and unmissable. Wiom plan prices displayed prominently would work for this segment.",
+    "Festive timing is not optional for this audience. Diwali, Dussehra, Eid, Onam — families make purchase decisions around festivals. Wiom launch or promotional campaigns should align with festive windows."
+  ]
+}

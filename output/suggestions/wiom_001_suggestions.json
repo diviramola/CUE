@@ -1,0 +1,75 @@
+{
+  "ad_id": "wiom_001",
+  "overall_score": 55,
+  "suggestions": [
+    {
+      "dimension": "ctr_drivers",
+      "priority": "high",
+      "affects_metric": "ctr",
+      "current": "The ad is 100% dialogue-driven with no text overlays, captions, or visual storytelling that works without sound. On Meta feed (85% sound-off), the viewer sees people talking near an auto-rickshaw with no context.",
+      "pattern_says": "Pattern K2 (Sound-Off Survivability): Ads designed to communicate their core message visually without audio, via visual comedy or bold text overlays, significantly outperform on Meta. 4 of 13 top ads are explicitly sound-off ready.",
+      "suggested_change": "Add 3-4 bold Hindi text overlays at key narrative beats: (1) 'Bijli band, akhbaar band, doodh band...' at the cancellation montage, (2) 'Ghar ka net bhi band?' when the driver asks, (3) 'Jitna use karo, utna bharo' at the punchline, (4) Wiom CTA at the end. Use large, high-contrast text that's readable on a phone screen. This preserves the narrative while making it work sound-off.",
+      "why_it_works": "Text overlays create a parallel visual narrative that communicates the story's essence without audio. The viewer understands problem (cancelling services), curiosity (what about internet?), and solution (pay-per-use) even on mute.",
+      "reference_ad_id": "ad_002",
+      "reference_note": "Lahori Zeera uses exaggerated visual storytelling that works entirely without sound — the humor is visual, not verbal. While GAON's dialogue is its strength, text overlays can bridge the sound-off gap.",
+      "impact_confidence": "high"
+    },
+    {
+      "dimension": "cta_conversion",
+      "priority": "high",
+      "affects_metric": "downloads",
+      "current": "The ad ends with a tagline ('Wiom — Pure ghar ka net, jitna use karo, bass utna bharo') but no actual call to action. No app download prompt, no website, no QR code, no free trial offer. The viewer has no next step.",
+      "pattern_says": "Pattern K1 (Earned CTA): The CTA should feel like the natural conclusion of the narrative, not an appended ask. 12 of 13 top ads place a late CTA that connects to the story. But it must be a CTA, not just a tagline.",
+      "suggested_change": "After the tagline, add a 3-second end card: 'Download Wiom — Pehla mahina free' (First month free) with app store badges and a QR code. The 'free trial' extends the meter metaphor — try before you pay, just like an auto ride. Keep the tagline as the emotional close, then add the action prompt as the functional close.",
+      "why_it_works": "The ad successfully builds understanding of Wiom's value proposition. A free trial CTA capitalizes on that understanding while the viewer's interest is at its peak. The meter metaphor makes 'try free' feel natural, not salesy.",
+      "reference_ad_id": "ad_009",
+      "reference_note": "Sony LIV's 'Do Not Apply' ad uses reverse psychology but still ends with a clear CTA (register now). The boldness of the creative earns the CTA. GAON's narrative earns it too — just needs to actually ask.",
+      "impact_confidence": "high"
+    },
+    {
+      "dimension": "hook",
+      "priority": "high",
+      "affects_metric": "video_completion",
+      "current": "Opens with a production title card ('OFFLINE SEC 23.03.26') followed by a young woman on her phone. The first interesting visual (mother talking animatedly) arrives at ~10 seconds. For feed platforms, this is 7 seconds too late.",
+      "pattern_says": "Pattern C1 (Open with Recognition, Not Brand) + C2 (Curiosity Engine): Open with a moment the viewer recognizes — relatable problem, visual surprise, or curiosity gap. Create an unanswered question in the first 2-3 seconds that the viewer must resolve by watching.",
+      "suggested_change": "Re-edit to open with the mother's animated dialogue about cancelling services — 'Bijli band karo, akhbaar band karo, doodh band karo... aur haan, net bhi band karo!' The rapid-fire cancellations create curiosity (why is everything being cancelled?) and the 'net band karo' is the hook that sets up the rest. Cut the title card entirely for feed versions.",
+      "why_it_works": "The cancellation montage creates immediate curiosity (why is this family shutting everything down?) and the 'net bhi band karo' raises the specific question the ad answers. It filters for the target audience (families, Tier 2-3, household decisions) within 3 seconds.",
+      "reference_ad_id": "ad_010",
+      "reference_note": "Adani's 'Pehle Pankha Aayega' opens with a mysterious catchphrase that creates instant curiosity. GAON has a similarly curiosity-worthy moment (cancelling everything including internet) — it just needs to be moved to the front.",
+      "impact_confidence": "medium"
+    },
+    {
+      "dimension": "retention",
+      "priority": "medium",
+      "affects_metric": "video_completion",
+      "current": "49 seconds with consistent conversational pacing throughout. No tonal shift, no energy spike, no dramatic reveal. The auto driver enters at ~35s (71% mark) but doesn't create a dramatic change in energy. The pace is pleasant but flat.",
+      "pattern_says": "Pattern C4 (Pattern Interrupt at Midpoint): Place a tonal shift, surprise, or energy change at 40-60% of the ad's duration. 11 of 13 top ads have documented pace changes. Pattern C3 suggests 30s is the feed sweet spot; 49s needs exceptional retention mechanics to justify.",
+      "suggested_change": "Create a 30-second feed cut that compresses the narrative: (0-5s) cancellation montage hook, (5-15s) auto-rickshaw ride + driver's curiosity, (15-22s) meter analogy explanation with energy shift (driver's 'aha' moment as pattern interrupt), (22-27s) family reaction + warmth beat, (27-30s) Wiom tagline + CTA. The 30s version should also have a clear energy spike at the 15s mark when the driver 'gets it'.",
+      "why_it_works": "A 30s cut forces tighter storytelling and hits the duration sweet spot for feed. The driver's realization becomes the pattern interrupt at exactly 50% (15s mark). The shorter format also reduces the risk of mid-roll drop-off that 49s invites.",
+      "reference_ad_id": "ad_003",
+      "reference_note": "WD-40 tells complete problem-solution-payoff stories in 6 seconds. GAON has enough narrative material for 30s — the auto-meter analogy is the core insight and needs only 10-15 seconds to land.",
+      "impact_confidence": "medium"
+    },
+    {
+      "dimension": "brand_coherence",
+      "priority": "low",
+      "affects_metric": "downloads",
+      "current": "Wiom appears only in the text-only end card. No logo animation, no audio sting, no recurring visual motif. While the delayed brand reveal is correct strategy, the brand needs to be more memorable when it does appear.",
+      "pattern_says": "Top ads use brand as enhancement, not interruption. The brand moment should be distinctive enough to build recall across a campaign. Best ads have intentional, crafted brand reveals — not just text on screen.",
+      "suggested_change": "Design a 3-second Wiom brand moment for the end card: the auto-meter visual metaphor as a branded animation (meter ticking = data being used), accompanied by a short audio signature. Use this consistently across all GAON campaign ads. The meter-as-logo concept reinforces the USP visually every time Wiom appears.",
+      "why_it_works": "A distinctive brand moment that extends the ad's core metaphor (the meter) creates recall beyond a single viewing. When the viewer sees the meter animation on a second ad, they instantly recall the concept. This builds brand equity across the campaign.",
+      "reference_ad_id": "ad_012",
+      "reference_note": "Surf Excel's 'Daag Acche Hain' has built a brand identity so strong that the tagline itself is a cultural artifact. GAON's meter analogy has similar potential if it's visually codified as a brand element.",
+      "impact_confidence": "low"
+    }
+  ],
+  "keep": [
+    "The auto-meter analogy — this is Wiom's single most powerful creative asset. It makes metered broadband instantly understandable. Never lose this.",
+    "Authentic Tier 2-3 setting and casting — the small-town street, auto-rickshaw, school uniform kid, blue saree mother. This is real India, not aspirational India. The target audience sees themselves.",
+    "Pure Hindi dialogue in authentic small-town register — not Hinglish, not urban. This is exactly right for the target audience.",
+    "TVF production quality — high craft that doesn't feel corporate. The grounded, warm aesthetic matches the brand positioning.",
+    "Family as protagonists with 4-5 members — the exact household making broadband decisions in Tier 2-3 India."
+  ],
+  "coherence_check": "The suggestions focus on packaging (hook, sound-off, CTA, duration) rather than substance. The ad's core — the auto-meter analogy, the family setting, the cultural register — is strong and must not change. The risk is that adding text overlays could make it feel cluttered or that a 30s cut could lose the warmth of the longer narrative. Recommendation: create the 30s feed cut AND keep the 49s version for YouTube pre-roll where sound-on and longer attention are the norm. Test both.",
+  "next_step": "Create a 30-second feed-optimized cut of GAON with: (1) re-ordered hook starting with cancellation montage, (2) 3-4 bold Hindi text overlays for sound-off viewing, (3) specific CTA end card with app download + free trial offer. Test against the original 49s on YouTube to validate whether the playbook patterns hold."
+}

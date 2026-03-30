@@ -1,0 +1,75 @@
+{
+  "ad_id": "ad_009",
+  "hook": {
+    "type": "controversy",
+    "face_first_frame": false,
+    "text_overlay_first_frame": true,
+    "brand_visible_3s": true,
+    "audio_hook": "voiceover",
+    "language": "Hindi",
+    "effectiveness_note": "Title card saying 'Do Not Apply' for a registration ad. The contradiction is impossible to ignore. Reverse psychology triggers reactance — when told NOT to do something, people want to do it more. The hook works on a deep psychological level that bypasses rational evaluation."
+  },
+  "narrative": {
+    "arc_type": "single_scene",
+    "tension_payoff": "buildup",
+    "num_scenes": 5,
+    "effectiveness_note": "Builds a satirical argument for why you should NOT apply to Shark Tank. Each reason is actually a disguised argument for WHY you should (e.g., 'do not apply because you will have to work hard' = 'Shark Tank rewards hard work'). The double-meaning structure rewards attentive viewers."
+  },
+  "pacing": {
+    "duration_bucket": "30s",
+    "cuts_per_15s": 4,
+    "pace_changes": [
+      "0-5s: provocative title card",
+      "5-25s: escalating satirical reasons",
+      "25-35s: reveal and CTA",
+      "35-45s: registration details"
+    ],
+    "pattern_interrupts": [
+      "Each new satirical reason re-engages because the viewer is enjoying the cleverness of the double-meaning"
+    ],
+    "retention_note": "The viewer stays because they are decoding the double-meaning in real time. It is intellectually engaging — you are solving a puzzle, not passively watching. People who get the satire feel smart, which creates positive brand association."
+  },
+  "audio": {
+    "music_type": "original_score",
+    "voiceover": true,
+    "voiceover_tone": "authority",
+    "language": "Hindi",
+    "music_visual_sync": false,
+    "audio_note": "Authoritative voiceover delivers the 'do not apply' message with deadpan seriousness. The contrast between serious delivery and satirical content is the comedy engine. If the voiceover winked, it would undermine the whole concept. The straight delivery is essential."
+  },
+  "visual": {
+    "talent_type": "no_talent",
+    "production_quality": "mid",
+    "text_overlay_density": "heavy",
+    "color_mood": "dark",
+    "product_visibility": "always_visible",
+    "visual_note": "Bold typography dominates — the text IS the visual. Heavy text overlay works here because the words ARE the content. Dark, serious visual tone reinforces the fake-warning aesthetic. This is designed to work sound-off because the text carries the full message."
+  },
+  "cta": {
+    "type": "sign_up",
+    "timing": "late",
+    "visual_treatment": "combined",
+    "urgency_element": "limited_time",
+    "cta_note": "Registration deadline creates natural urgency. The entire reverse-psychology setup makes the CTA (apply now) feel like a rebellion — you are defying the ad's instructions. This transforms a mundane registration CTA into an act of agency. Brilliant."
+  },
+  "brand": {
+    "logo_presence": "bookend",
+    "brand_first_named_seconds": 2,
+    "brand_voice_consistent": true,
+    "brand_note": "Sony LIV and Shark Tank branding upfront — necessary because the reverse psychology only works if you know WHO is telling you not to apply. Brand presence is essential to the mechanic, not a compromise."
+  },
+  "emotional": {
+    "primary_emotion": "humor",
+    "cultural_specificity": [
+      "youth_culture"
+    ],
+    "hinglish_level": "pure_hindi",
+    "cultural_note": "References employment debates and startup culture in India. Taps into the aspirational energy of Indian youth who dream of building businesses. The 'do not apply' framing implicitly says 'only the brave should apply' which flatters the target audience."
+  },
+  "x_factor": "Reverse psychology is an underused mechanic in Indian advertising. This ad proves it works spectacularly. The concept is so simple it fits in three words ('Do Not Apply') yet generates layers of satirical meaning. The ad makes the VIEWER do the work of persuading themselves — the most powerful form of marketing. You are not told to apply; you DECIDE to apply despite being told not to. That is agency, not advertising.",
+  "lessons_for_wiom": [
+    "Reverse psychology for ISP: 'Do Not Switch to Wiom' campaign listing reasons not to switch that are actually reasons TO switch. 'Do not switch because you will get addicted to video calls that actually work.' Bold, memorable, shareable.",
+    "Text-heavy sound-off design is underused in Indian digital ads. For Meta feed placement, a bold-text reverse-psychology ad would stop thumbs because it looks different from every other video ad.",
+    "Making the viewer persuade themselves is more powerful than persuading them. Wiom could pose challenges: 'Think your internet is fast enough? Run this test.' Let the experience do the selling."
+  ]
+}

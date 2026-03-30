@@ -1,0 +1,28 @@
+{
+  "id": "wiom_001",
+  "advertiser": "Wiom",
+  "campaign": "GAON",
+  "platform": "YouTube",
+  "format": "TVC",
+  "duration_seconds": 49,
+  "language": "Hindi",
+  "source": "manual",
+  "date_found": "2026-03-28",
+  "date_published": "2026-03",
+  "vertical": "ISP/broadband",
+  "region": "India",
+  "production": "TVF (The Viral Fever)",
+  "description": "Small-town family preparing to leave their village home, cancelling services one by one — lights, newspaper, milk, internet. An auto-rickshaw driver overhears 'ghar ka net' and asks about it. The young woman explains Wiom's pay-for-what-you-use model using the auto-meter as analogy. Authentic Tier 2-3 India setting with family of 4-5.",
+  "tags": [
+    "family",
+    "small-town",
+    "hindi",
+    "narrative",
+    "auto-rickshaw",
+    "pay-per-use",
+    "tier-2-3",
+    "dialogue-driven"
+  ],
+  "transcript_summary": "Family cancels utilities before leaving home. Auto driver asks about 'ghar ka net'. Daughter explains: 'jitna use karo, utne paise bharo' (pay for what you use). Driver relates it to his auto meter. End: Wiom tagline.",
+  "frames_path": "wiom-ads/frames/gaon_01.jpg through gaon_11.jpg"
+}

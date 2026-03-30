@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ad Deconstruction",
+  "type": "object",
+  "required": ["ad_id", "hook", "narrative", "pacing", "audio", "visual", "cta", "brand", "emotional", "x_factor", "lessons_for_wiom"],
+  "properties": {
+    "ad_id": { "type": "string", "pattern": "^(ad|wiom)_\\d{3,}$" },
+    "hook": {
+      "type": "object",
+      "required": ["type", "face_first_frame", "text_overlay_first_frame", "brand_visible_3s", "audio_hook", "language", "effectiveness_note"],
+      "properties": {
+        "type": { "type": "string", "enum": ["question", "shocking_stat", "problem_statement", "visual_surprise", "testimonial", "product_demo", "curiosity_gap", "controversy", "relatable_moment"] },
+        "face_first_frame": { "type": "boolean" },
+        "text_overlay_first_frame": { "type": "boolean" },
+        "brand_visible_3s": { "type": "boolean" },
+        "audio_hook": { "type": "string", "enum": ["music_hit", "voiceover", "sound_effect", "silence", "dialogue"] },
+        "language": { "type": "string" },
+        "effectiveness_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "narrative": {
+      "type": "object",
+      "required": ["arc_type", "tension_payoff", "num_scenes", "effectiveness_note"],
+      "properties": {
+        "arc_type": { "type": "string", "enum": ["problem_solution", "before_after", "testimonial", "demo", "listicle", "comparison", "day_in_life", "ugc_style", "montage", "single_scene"] },
+        "tension_payoff": { "type": "string", "enum": ["buildup", "front_loaded"] },
+        "num_scenes": { "type": "integer", "minimum": 1 },
+        "effectiveness_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "pacing": {
+      "type": "object",
+      "required": ["duration_bucket", "cuts_per_15s", "pace_changes", "pattern_interrupts", "retention_note"],
+      "properties": {
+        "duration_bucket": { "type": "string", "enum": ["6s", "15s", "30s", "60s+"] },
+        "cuts_per_15s": { "type": "number", "minimum": 0 },
+        "pace_changes": { "type": "array", "items": { "type": "string" } },
+        "pattern_interrupts": { "type": "array", "items": { "type": "string" } },
+        "retention_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "required": ["music_type", "voiceover", "language", "music_visual_sync", "audio_note"],
+      "properties": {
+        "music_type": { "type": "string", "enum": ["trending", "original_score", "no_music", "sound_effects_only"] },
+        "voiceover": { "type": "boolean" },
+        "voiceover_tone": { "type": ["string", "null"], "enum": ["authority", "conversational", "energetic", "emotional", null] },
+        "language": { "type": "string" },
+        "music_visual_sync": { "type": "boolean" },
+        "audio_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "required": ["talent_type", "production_quality", "text_overlay_density", "color_mood", "product_visibility", "visual_note"],
+      "properties": {
+        "talent_type": { "type": "string", "enum": ["actor", "real_user_ugc", "influencer", "no_talent", "animation"] },
+        "production_quality": { "type": "string", "enum": ["high", "mid", "lo_fi_ugc"] },
+        "text_overlay_density": { "type": "string", "enum": ["none", "minimal", "heavy"] },
+        "color_mood": { "type": "string", "enum": ["bright", "muted", "dark", "brand_colored"] },
+        "product_visibility": { "type": "string", "enum": ["always_visible", "reveal_moment", "absent_until_cta"] },
+        "visual_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "cta": {
+      "type": "object",
+      "required": ["type", "timing", "visual_treatment", "urgency_element", "cta_note"],
+      "properties": {
+        "type": { "type": "string", "enum": ["download_app", "visit_site", "book_now", "learn_more", "shop", "sign_up", "other"] },
+        "timing": { "type": "string", "enum": ["early", "mid", "late", "multiple"] },
+        "visual_treatment": { "type": "string", "enum": ["text_overlay", "button_mockup", "voiceover_only", "combined"] },
+        "urgency_element": { "type": "string", "enum": ["limited_time", "social_proof", "scarcity", "none"] },
+        "cta_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "required": ["logo_presence", "brand_first_named_seconds", "brand_voice_consistent", "brand_note"],
+      "properties": {
+        "logo_presence": { "type": "string", "enum": ["always_visible", "bookend", "end_card_only", "embedded_naturally"] },
+        "brand_first_named_seconds": { "type": "number", "minimum": 0 },
+        "brand_voice_consistent": { "type": "boolean" },
+        "brand_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "emotional": {
+      "type": "object",
+      "required": ["primary_emotion", "cultural_specificity", "hinglish_level", "cultural_note"],
+      "properties": {
+        "primary_emotion": { "type": "string", "enum": ["humor", "aspiration", "fear_urgency", "relatability", "pride", "warmth"] },
+        "cultural_specificity": { "type": "array", "items": { "type": "string" } },
+        "hinglish_level": { "type": "string", "enum": ["pure_hindi", "pure_english", "light_mix", "heavy_code_switching"] },
+        "cultural_note": { "type": "string", "minLength": 20 }
+      }
+    },
+    "x_factor": { "type": "string", "minLength": 50 },
+    "lessons_for_wiom": { "type": "array", "items": { "type": "string", "minLength": 20 }, "minItems": 2, "maxItems": 4 }
+  },
+  "additionalProperties": false
+}

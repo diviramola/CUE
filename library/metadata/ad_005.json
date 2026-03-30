@@ -1,0 +1,26 @@
+{
+  "id": "ad_005",
+  "advertiser": "Urban Company",
+  "platform": "YouTube",
+  "format": "In-Feed Video",
+  "duration_seconds": 45,
+  "language": "Hindi",
+  "url": "https://beastoftraal.com/2026/01/05/the-10-best-indian-ads-of-2025/",
+  "source": "web_search",
+  "date_found": "2026-03-28",
+  "date_published": "2025-03",
+  "vertical": "Consumer internet/services",
+  "region": "India",
+  "tier": null,
+  "tier_notes": "",
+  "description": "Native RO campaign. Product USP communicated through humorous dialogue by servicing professionals. Droll musical score with 1980s Bollywood-style elements. Named among top 10 Indian ads of 2025.",
+  "why_included": "Service brand using humor plus product demo hybrid. Retro Bollywood aesthetic is a distinctive pattern interrupt. Relevant: both are home service brands explaining a product benefit clearly.",
+  "tags": [
+    "humor",
+    "product-demo",
+    "retro-aesthetic",
+    "professional-talent",
+    "home-service"
+  ],
+  "deconstructed": true
+}

@@ -1,0 +1,27 @@
+{
+  "id": "ad_006",
+  "advertiser": "HDFC Mutual Fund",
+  "platform": "YouTube",
+  "format": "In-Feed Video",
+  "duration_seconds": 45,
+  "language": "Hindi",
+  "url": "https://beastoftraal.com/2026/01/05/the-10-best-indian-ads-of-2025/#hdfc",
+  "source": "web_search",
+  "date_found": "2026-03-28",
+  "date_published": "2025-01",
+  "vertical": "Fintech/mutual funds",
+  "region": "India",
+  "tier": null,
+  "tier_notes": "",
+  "description": "We Are All Investors campaign. Uses Hindi analogies from daily life to explain investment concepts without financial jargon. Emphasizes compounding through relatable everyday scenarios. Top 10 Indian ad of 2025.",
+  "why_included": "Takes a complex boring product and makes it relatable through everyday analogies. Wiom faces same challenge: broadband is a commodity. How do you make people care? This ad shows how.",
+  "tags": [
+    "analogy",
+    "relatable",
+    "jargon-free",
+    "fintech",
+    "everyday-scenarios",
+    "education"
+  ],
+  "deconstructed": true
+}

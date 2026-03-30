@@ -1,0 +1,26 @@
+{
+  "id": "ad_010",
+  "advertiser": "Adani Group",
+  "platform": "YouTube",
+  "format": "TVC",
+  "duration_seconds": 60,
+  "language": "Hindi",
+  "url": "https://www.linkedin.com/posts/karts_advertising-marketing-creativity-activity-7275722334932480000-JgnP",
+  "source": "web_search",
+  "date_found": "2026-03-28",
+  "date_published": "2024-12",
+  "vertical": "Infrastructure/energy",
+  "region": "India",
+  "tier": null,
+  "tier_notes": "",
+  "description": "Pehle Pankha Aayega Phir Bijli Aayegi. Mystery narrative with repeated catchphrase creating curiosity. Reveals brand electrification initiative at the end. Named among top 10 Indian ads of 2024.",
+  "why_included": "Infrastructure brand making infrastructure interesting through mystery narrative. Directly relevant: broadband is infrastructure too. Curiosity-gap plus catchphrase combo is a retention machine.",
+  "tags": [
+    "mystery-narrative",
+    "curiosity-gap",
+    "catchphrase",
+    "infrastructure",
+    "reveal-payoff"
+  ],
+  "deconstructed": true
+}
