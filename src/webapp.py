@@ -832,8 +832,6 @@ def wiom():
         status_pills = f'''<div style="display:flex;align-items:center;gap:6px;margin-top:12px;flex-wrap:wrap">
           {_pill("Uploaded", True)}
           <span style="color:#2d3148;font-size:12px">→</span>
-          {_pill("Deconstructed", has_decon, f"/run/full/{wid}")}
-          <span style="color:#2d3148;font-size:12px">→</span>
           {_pill("Reviewed", has_scored, f"/run/full/{wid}")}
           <span style="color:#2d3148;font-size:12px">→</span>
           {_pill("Optimized", has_optim, f"/performance?ad_id={wid}")}
@@ -1350,13 +1348,18 @@ def _render_pipeline_result(ad_id, steps, scorecard, suggestions):
     """Render the full pipeline results page."""
     html = f'<h2>{_esc(_ad_name(ad_id))}</h2>'
 
-    # Steps summary
+    # Steps summary — hide Deconstruct (background step), only show Review + Suggest
+    visible_steps = [(name, ok, msg) for name, ok, msg in steps if name != "Deconstruct"]
+    # If deconstruct failed, surface that as the error instead
+    decon_step = next(((name, ok, msg) for name, ok, msg in steps if name == "Deconstruct"), None)
+    if decon_step and not decon_step[1]:
+        html += f'<div style="background:#ef444418;border:1px solid #ef444440;border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#ef4444">Analysis failed: {_esc(decon_step[2])}</div>'
     steps_html = '<div style="display:flex;gap:8px;margin-bottom:24px;align-items:center">'
-    for i, (name, ok, msg) in enumerate(steps):
+    for i, (name, ok, msg) in enumerate(visible_steps):
         c = "#22c55e" if ok else "#ef4444"
         icon = "✓" if ok else "✗"
         steps_html += f'<div style="padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;background:{c}22;color:{c};border:1px solid {c}44">{icon} {name}</div>'
-        if i < len(steps) - 1:
+        if i < len(visible_steps) - 1:
             steps_html += '<span style="color:#2d3148">→</span>'
     steps_html += '</div>'
     html += steps_html
