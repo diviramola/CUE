@@ -105,6 +105,7 @@ def _chip(text, color="blue"):
         "amber": "background:#f59e0b22;color:#f59e0b",
         "red":   "background:#ef444422;color:#ef4444",
         "blue":  "background:#3b82f622;color:#3b82f6",
+        "gray":  "background:#6b728022;color:#9ca3af",
     }
     st = colors.get(color, colors["blue"])
     return f'<span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500;margin-right:4px;{st}">{_esc(text)}</span>'
@@ -573,7 +574,19 @@ def playbook():
 
 @app.route("/wiom")
 def wiom():
-    wiom_ids = sorted([f.stem for f in WIOM_DIR.glob("*.json") if not f.stem.startswith("_") and not f.stem.endswith("_decon")])
+    show_archived = request.args.get("archived") == "1"
+    all_wiom = []
+    for f in sorted(WIOM_DIR.glob("*.json")):
+        if f.stem.startswith("_") or f.stem.endswith("_decon"):
+            continue
+        try:
+            with open(f, "r", encoding="utf-8") as fh:
+                m = json.load(fh)
+            if show_archived or not m.get("archived", False):
+                all_wiom.append(f.stem)
+        except Exception:
+            all_wiom.append(f.stem)
+    wiom_ids = sorted(all_wiom)
 
     scorecards = {}
     for f in SCORECARDS_DIR.glob("*_scorecard.json"):
@@ -602,7 +615,8 @@ def wiom():
     else:
         wiom_next = _next_step("Add live performance data", "Ads are scored. Now add Meta performance data to unlock Optimize.", "/performance", "Add Performance Data →")
 
-    html = f'<h2>Wiom Ads & Scorecards</h2><div style="display:flex;gap:12px;margin-bottom:16px">{_btn("+ Upload Ad", "/wiom/upload")} {_btn("Batch Review", "/batch/review", False)} {_btn("Campaign Mapping", "/campaign/map", False)}</div>{wiom_next}'
+    archive_toggle = _btn("Show Archived", "/wiom?archived=1", False) if not show_archived else _btn("Hide Archived", "/wiom", False)
+    html = f'<h2>Wiom Ads & Scorecards</h2><div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">{_btn("+ Upload Ad", "/wiom/upload")} {_btn("Batch Review", "/batch/review", False)} {_btn("Campaign Mapping", "/campaign/map", False)} {archive_toggle}</div>{wiom_next}'
     for wid in wiom_ids:
         meta_path = WIOM_DIR / f"{wid}.json"
         meta = {}
@@ -641,17 +655,28 @@ def wiom():
         review_btn = f'<form method="POST" action="/run/full/{wid}" style="display:inline"><button type="submit" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:#6366f1;color:white">Review</button></form>'
         optimize_btn = f'<form method="POST" action="/run/optimize/{wid}" style="display:inline"><button type="submit" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:#22c55e;color:white">Optimize</button></form>' if wid in scorecards else ""
 
-        buttons = f'''<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        # Archive / Change Objective / Delete — management actions after scoring
+        is_archived = meta.get("archived", False)
+        archive_label = "Unarchive" if is_archived else "Archive"
+        archive_btn = f'<form method="POST" action="/wiom/{wid}/archive" style="display:inline"><button type="submit" style="padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid #4b5563;background:transparent;color:#9ca3af" title="{"Unarchive" if is_archived else "Archive this ad — hides it from the main list"}">{archive_label}</button></form>'
+        delete_btn = f'<form method="POST" action="/wiom/{wid}/delete" style="display:inline" onsubmit="return confirm(\'Delete {wid} and all associated scorecards? This cannot be undone.\')"><button type="submit" style="padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid #7f1d1d;background:transparent;color:#f87171" title="Permanently delete this ad and its data">Delete</button></form>'
+        change_obj_btn = _btn("Change Objective", f"/context/new?ad_id={wid}", False, True)
+
+        buttons = f'''<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
           {review_btn} {optimize_btn}
           {_btn("+ Context", f"/context/new?ad_id={wid}", False, True)}
           {_btn("+ Performance", f"/performance?ad_id={wid}", False, True)}
           {_btn("Pull from Meta", "/meta/pull", False, True)}
           {_btn("History", f"/history?ad_id={wid}", False, True)}
+        </div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid #1e2235">
+          {change_obj_btn} {archive_btn} {delete_btn}
         </div>'''
 
         decon_badge = _chip("Deconstructed", "green") if has_decon else _chip("Not Deconstructed", "amber")
+        archived_badge = _chip("Archived", "gray") if meta.get("archived") else ""
         ad_title = _ad_name(wid)
-        html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{score_html}{ctx_html}{buttons}')
+        html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge} {archived_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{score_html}{ctx_html}{buttons}')
 
     if not wiom_ids:
         html += _card('<div style="text-align:center;padding:48px;color:#8b91a8"><h3 style="color:#e4e7f0;margin-bottom:8px">No Wiom ads loaded</h3><p>Share a video file in Claude Code to add your first Wiom ad.</p></div>')
@@ -1492,6 +1517,70 @@ def meta_pull_page():
     </div>
     </form>'''
     return _page("Pull from Meta", html, "performance")
+
+
+# ---------------------------------------------------------------------------
+# Ad Management: Archive / Delete
+# ---------------------------------------------------------------------------
+
+@app.route("/wiom/<ad_id>/archive", methods=["POST"])
+def wiom_archive(ad_id):
+    """Toggle archived status on a Wiom ad. Archived ads are hidden from main view."""
+    meta_path = WIOM_DIR / f"{ad_id}.json"
+    if not meta_path.exists():
+        return redirect("/wiom")
+    with open(meta_path, "r", encoding="utf-8") as f:
+        meta = json.load(f)
+    meta["archived"] = not meta.get("archived", False)
+    meta["archived_at"] = datetime.now().isoformat() if meta["archived"] else None
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(meta, f, indent=2, ensure_ascii=False)
+    return redirect("/wiom")
+
+
+@app.route("/wiom/<ad_id>/delete", methods=["POST"])
+def wiom_delete(ad_id):
+    """Delete a Wiom ad and all associated data (scorecard, suggestions, decon, frames)."""
+    import shutil
+    # Safety: only delete wiom_ IDs
+    if not ad_id.startswith("wiom_"):
+        return redirect("/wiom")
+
+    # Delete metadata + deconstruction
+    for suffix in ["", "_decon"]:
+        p = WIOM_DIR / f"{ad_id}{suffix}.json"
+        if p.exists():
+            p.unlink()
+
+    # Delete frames directory
+    frames_dir = ROOT / "wiom-ads" / "frames" / ad_id
+    if frames_dir.exists():
+        shutil.rmtree(frames_dir, ignore_errors=True)
+
+    # Delete scorecard, suggestions
+    for d, suf in [(SCORECARDS_DIR, "_scorecard"), (SUGGESTIONS_DIR, "_suggestions")]:
+        p = d / f"{ad_id}{suf}.json"
+        if p.exists():
+            p.unlink()
+
+    # Delete optimizations
+    for p in OPTIMIZATIONS_DIR.glob(f"{ad_id}_opt_*.json"):
+        p.unlink()
+
+    # Delete contexts
+    for p in CONTEXTS_DIR.glob(f"{ad_id}_ctx*.json"):
+        p.unlink()
+
+    # Delete performance snapshots
+    for p in PERFORMANCE_DIR.glob(f"{ad_id}_perf_*.json"):
+        p.unlink()
+
+    # Delete history
+    hist_dir = HISTORY_DIR / ad_id
+    if hist_dir.exists():
+        shutil.rmtree(hist_dir, ignore_errors=True)
+
+    return redirect("/wiom")
 
 
 # ---------------------------------------------------------------------------

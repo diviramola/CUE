@@ -222,14 +222,29 @@ Output ONLY valid JSON (no markdown, no explanation):
   "lessons_for_wiom": ["<20+ char lesson 1>", "<20+ char lesson 2>", "<20+ char lesson 3>"]
 }}"""
 
+    # Extract transcript explicitly so the LLM doesn't miss it buried in metadata JSON
+    transcript_text = meta.get("transcript", "")
+    transcript_lang = meta.get("language", "")
+    transcript_section = (
+        f"\nAUDIO TRANSCRIPT ({transcript_lang}):\n{transcript_text}"
+        if transcript_text else
+        "\nAUDIO TRANSCRIPT: Not available — infer from description and tags."
+    )
+
     user_prompt = f"""Deconstruct this Wiom ad:
 
 AD METADATA:
 {json.dumps(meta, indent=2, ensure_ascii=False)}
 
 FRAMES: {frames_text}
+{transcript_section}
 
-Use the description and transcript to infer visual, pacing, and audio elements.
+Use the transcript to determine:
+- hook.audio_hook and audio.voiceover (is there voiceover? what language?)
+- emotional.hinglish_level (what mix of Hindi/English is in the dialogue?)
+- narrative.arc_type (what story structure does the dialogue follow?)
+- brand.brand_first_named_seconds (when is "Wiom" first mentioned in the transcript?)
+
 Be specific and honest — note weaknesses as well as strengths in the effectiveness notes.
 Lessons for Wiom should be actionable creative insights."""
 
