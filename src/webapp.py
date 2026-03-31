@@ -665,19 +665,67 @@ def wiom():
         desc = f'<p style="font-size:13px;color:#8b91a8">{_esc(meta.get("description",""))}</p>'
         tags = "".join(_chip(t, "blue") for t in meta.get("tags", []))
 
+        # #4 — Transcript preview (collapsed, expandable)
+        transcript = meta.get("transcript", "")
+        transcript_html = ""
+        if transcript:
+            preview = _esc(transcript[:160].strip()) + ("…" if len(transcript) > 160 else "")
+            transcript_html = f'''<details style="margin-top:10px">
+              <summary style="font-size:11px;color:#6366f1;cursor:pointer;user-select:none;list-style:none">
+                ▸ Transcript ({len(transcript.split())} words)
+              </summary>
+              <div style="margin-top:6px;font-size:12px;color:#8b91a8;line-height:1.6;
+                background:#242836;border-radius:6px;padding:10px 12px;font-style:italic">
+                {preview}
+              </div>
+            </details>'''
+
         score_html = ""
         if wid in scorecards:
             sc = scorecards[wid]
             ba_text = ""
             ba = sc.get("brief_alignment")
             if ba:
-                ba_text = f'<div style="font-size:13px">Brief Alignment: <strong>{ba["overall_brief_score"]}/100</strong></div>'
-            score_html = f'''<div style="margin-top:16px;display:flex;align-items:center;gap:24px">
-              {_gauge(sc.get("overall_score", 0))}
-              <div>
-                <div style="font-size:13px">Pattern Score: <strong>{sc.get("overall_score",0)}/100</strong></div>
+                ba_text = f'<div style="font-size:12px;color:#8b91a8">Brief: <strong style="color:#e4e7f0">{ba["overall_brief_score"]}/100</strong></div>'
+
+            # #5 — Dimension mini-bars inline on card
+            dims = sc.get("dimensions", {})
+            dim_bars = ""
+            for dn in ["hook", "retention", "ctr_drivers", "cta_conversion", "brand_coherence"]:
+                dd = dims.get(dn, {})
+                s = dd.get("score", 0)
+                bar_color = "#ef4444" if s <= 2 else "#f59e0b" if s <= 3 else "#22c55e"
+                bar_w = int(s / 5 * 100)
+                short = {"hook": "Hook", "retention": "Hold", "ctr_drivers": "CTR",
+                         "cta_conversion": "CTA", "brand_coherence": "Brand"}.get(dn, dn)
+                dim_bars += f'''<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                  <span style="font-size:10px;color:#8b91a8;width:32px;flex-shrink:0">{short}</span>
+                  <div style="flex:1;height:4px;background:#242836;border-radius:2px">
+                    <div style="width:{bar_w}%;height:4px;background:{bar_color};border-radius:2px"></div>
+                  </div>
+                  <span style="font-size:10px;color:#8b91a8;width:14px;text-align:right">{s}</span>
+                </div>'''
+
+            # #7 — Score tooltip: top strength + top gap
+            strengths = sc.get("strengths", [])
+            gaps = sc.get("priority_gaps", [])
+            tooltip_parts = []
+            if strengths:
+                tooltip_parts.append(f"✓ {strengths[0]}")
+            if gaps:
+                tooltip_parts.append(f"△ {gaps[0].get('description', '')}")
+            tooltip = " | ".join(tooltip_parts)[:200]
+
+            score_html = f'''<div style="margin-top:16px;display:flex;align-items:flex-start;gap:20px">
+              <div title="{_esc(tooltip)}" style="cursor:help;flex-shrink:0">
+                {_gauge(sc.get("overall_score", 0))}
+                <div style="font-size:10px;color:#8b91a8;text-align:center;margin-top:2px">hover for insight</div>
+              </div>
+              <div style="flex:1">
+                <div style="font-size:13px;margin-bottom:2px">Pattern Score: <strong>{sc.get("overall_score",0)}/100</strong></div>
                 {ba_text}
-                <div style="font-size:12px;color:#8b91a8">Objective: {sc.get("campaign_objective","default")}</div>
+                <div style="font-size:11px;color:#8b91a8;margin-bottom:8px">Objective: {sc.get("campaign_objective","default")}</div>
+                {dim_bars}
               </div>
             </div>'''
 
@@ -738,7 +786,7 @@ def wiom():
         decon_badge = _chip("Deconstructed", "green") if has_decon else _chip("Not Deconstructed", "amber")
         archived_badge = _chip("Archived", "gray") if meta.get("archived") else ""
         ad_title = _ad_name(wid)
-        html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge} {archived_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{status_pills}{score_html}{ctx_html}{buttons}')
+        html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge} {archived_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{transcript_html}{status_pills}{score_html}{ctx_html}{buttons}')
 
     if not wiom_ids:
         html += _card('<div style="text-align:center;padding:48px;color:#8b91a8"><h3 style="color:#e4e7f0;margin-bottom:8px">No Wiom ads loaded</h3><p>Share a video file in Claude Code to add your first Wiom ad.</p></div>')
