@@ -780,7 +780,7 @@ def wiom():
               <div style="flex:1">
                 <div style="font-size:13px;margin-bottom:2px">Pattern Score: <strong>{sc.get("overall_score",0)}/100</strong></div>
                 {ba_text}
-                <div style="font-size:11px;color:#8b91a8;margin-bottom:8px">Objective: {sc.get("campaign_objective","default")}</div>
+                <a href="/context/new?ad_id={wid}" style="display:inline-block;margin-bottom:8px;font-size:12px;font-weight:600;color:#818cf8;background:#6366f118;border:1px solid #6366f140;border-radius:6px;padding:3px 10px;text-decoration:none" title="Click to change objective">⚡ {sc.get("campaign_objective","default")} &nbsp;<span style="font-size:10px;opacity:0.7">change →</span></a>
                 {dim_bars}
               </div>
             </div>'''
