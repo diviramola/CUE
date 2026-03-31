@@ -152,6 +152,17 @@ def _stat(num, label):
     return _card(f'<div style="text-align:center;padding:16px"><div style="font-size:28px;font-weight:700;color:#818cf8">{num}</div><div style="font-size:11px;color:#8b91a8;text-transform:uppercase;letter-spacing:1px;margin-top:4px">{label}</div></div>', "padding:8px;margin-bottom:12px")
 
 
+def _next_step(title, body, href, cta_text):
+    """A next-step CTA banner guiding users through the flow."""
+    return f'''<div style="background:#6366f118;border:1px solid #6366f140;border-radius:10px;padding:16px 20px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#818cf8;margin-bottom:2px">Next step: {_esc(title)}</div>
+        <div style="font-size:12px;color:#8b91a8">{_esc(body)}</div>
+      </div>
+      {_btn(cta_text, href, True, True)}
+    </div>'''
+
+
 def _btn(text, href="#", primary=True, small=False):
     bg = "#6366f1" if primary else "#242836"
     bd = "" if primary else "border:1px solid #2d3148;"
@@ -176,6 +187,7 @@ def _page(title, content, active="home"):
     nav_items = [
         ("home", "/", "Dashboard"),
         ("library", "/library", f"Ad Library ({state['library']['total_ads']})"),
+        ("add_url", "/library/add-url", "+ Add Ad from URL"),
         ("playbook", "/playbook", "Playbook"),
         ("wiom", "/wiom", f"Ads & Scorecards ({state['wiom_ads']['total']})"),
         ("upload", "/wiom/upload", "+ Upload Ad"),
@@ -241,7 +253,23 @@ def home():
     stats += _stat(state["performance"]["total"], "Perf Snapshots")
     stats += '</div>'
 
-    html = f'<h2>Pipeline Status</h2>'
+    # Determine overall next step
+    phase = state["current_phase"]
+    phase_map = {
+        "scout":         ("Build the reference library", "Add best-in-class competitor ads so CUE has patterns to learn from.", "/library/add-url", "Add Ad from URL →"),
+        "deconstruct":   ("Deconstruct library ads", "New ads need to be deconstructed before the playbook can be updated.", "/library", "View Library →"),
+        "pattern":       ("Generate the playbook", "Run /cue-pattern to extract patterns from deconstructed ads.", "/playbook", "View Playbook →"),
+        "load_wiom_ads": ("Upload a Wiom ad", "Library is ready. Now upload a Wiom ad to review.", "/wiom/upload", "Upload Ad →"),
+        "review":        ("Review Wiom ads", "Set campaign context then click Review on your ads.", "/wiom", "Go to Ads →"),
+        "suggest":       ("Generate suggestions", "Scorecards ready. Generate improvement suggestions.", "/wiom", "Go to Ads →"),
+        "complete":      ("Add performance data", "Add live Meta data to unlock campaign optimization.", "/performance", "Add Performance →"),
+    }
+    if phase in phase_map:
+        html = _next_step(*phase_map[phase])
+    else:
+        html = ""
+
+    html += f'<h2>Pipeline Status</h2>'
     html += f'<div style="font-family:monospace;font-size:12px;color:#8b91a8;white-space:pre;line-height:1.6;padding:12px;background:#242836;border-radius:6px">{_esc(pb)}</div>'
     html += stats
 
@@ -321,23 +349,182 @@ def home():
 @app.route("/library")
 def library():
     index = load_index()
+    verticals = len(set(ad.get("vertical", "") for ad in index))
+    decon_count = sum(1 for ad in index if ad.get("deconstructed"))
+
+    # Next step banner
+    next_step = ""
+    if len(index) < 10:
+        next_step = _next_step("Add more reference ads", "Spot a great competitor ad? Add it to the library so CUE can learn from it.", "/library/add-url", "Add Ad from URL")
+    elif decon_count < len(index):
+        next_step = _next_step("Deconstruct remaining ads", f"{len(index) - decon_count} ads haven't been deconstructed yet. Deconstruct them to strengthen the playbook.", "/playbook", "View Playbook")
+    else:
+        next_step = _next_step("Library is complete", "All ads deconstructed. The playbook is fully informed. Go review a Wiom ad.", "/wiom", "Review Wiom Ads →")
+
+    # Stats bar
+    html = f'''<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div><h2 style="margin-bottom:4px">Best-in-Class Ad Library</h2>
+      <p style="color:#8b91a8">{len(index)} reference ads · {verticals} verticals · {decon_count} deconstructed</p></div>
+      <div style="display:flex;gap:8px">
+        {_btn("+ Add Ad from URL", "/library/add-url")}
+        <span style="padding:8px 14px;border-radius:6px;font-size:12px;color:#8b91a8;border:1px solid #2d3148;cursor:not-allowed">Meta Ad Library API (coming soon)</span>
+      </div>
+    </div>'''
+
+    html += next_step
+
     rows = ""
     for ad in index:
         tc = "green" if ad.get("tier") == "exceptional" else "amber" if ad.get("tier") == "strong" else "blue"
+        url = ad.get("url", "")
+        url_html = f'<a href="{_esc(url)}" target="_blank" style="font-size:11px;color:#818cf8">View ↗</a>' if url else ""
         rows += f'''<tr>
-          <td><strong>{_esc(ad["id"])}</strong></td>
+          <td><strong>{_esc(ad["id"])}</strong> {url_html}</td>
           <td>{_esc(ad.get("advertiser",""))}</td>
           <td>{_esc(ad.get("platform",""))}</td>
           <td>{_esc(ad.get("vertical",""))}</td>
           <td>{_chip(ad.get("tier","unrated"), tc)}</td>
-          <td>{"Yes" if ad.get("deconstructed") else "No"}</td>
+          <td>{"✓" if ad.get("deconstructed") else "—"}</td>
         </tr>'''
 
-    verticals = len(set(ad.get("vertical", "") for ad in index))
-    html = f'''<h2>Best-in-Class Ad Library</h2>
-    <p style="color:#8b91a8;margin-bottom:16px">{len(index)} ads across {verticals} verticals</p>
-    <table><tr><th>ID</th><th>Advertiser</th><th>Platform</th><th>Vertical</th><th>Tier</th><th>Deconstructed</th></tr>{rows}</table>'''
+    html += f'<table><tr><th>ID</th><th>Advertiser</th><th>Platform</th><th>Vertical</th><th>Tier</th><th>Deconstructed</th></tr>{rows}</table>'
     return _page("Ad Library", html, "library")
+
+
+@app.route("/library/add-url", methods=["GET", "POST"])
+def library_add_url():
+    """Add a competitor ad to the library by URL."""
+    from harness import save_ad, next_ad_id
+
+    if request.method == "POST":
+        ad_id = next_ad_id()
+        url = request.form.get("url", "").strip()
+        advertiser = request.form.get("advertiser", "").strip()
+        platform = request.form.get("platform", "")
+        vertical = request.form.get("vertical", "ISP/broadband")
+        tier = request.form.get("tier", "reference")
+        description = request.form.get("description", "").strip()
+        tags_raw = request.form.get("tags", "")
+        tags = [t.strip() for t in tags_raw.split(",") if t.strip()]
+
+        data = {
+            "id": ad_id,
+            "advertiser": advertiser,
+            "platform": platform,
+            "vertical": vertical,
+            "tier": tier,
+            "format": "video",
+            "duration_seconds": None,
+            "language": request.form.get("language", "Hindi"),
+            "region": "India",
+            "url": url,
+            "description": description,
+            "tags": tags,
+            "date_found": datetime.now().strftime("%Y-%m-%d"),
+            "deconstructed": False,
+            "source": "url_submission",
+        }
+
+        ok, msg = save_ad(data)
+        if ok:
+            html = f'''<div style="padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:16px;background:#22c55e18;border:1px solid #22c55e40;color:#22c55e">
+              Added <strong>{ad_id}</strong> — {_esc(advertiser)} to library
+            </div>'''
+            html += _next_step("Next: update the playbook", "Now that a new ad is in the library, regenerate the playbook to include its patterns.", "/playbook", "View Playbook")
+            html += f'<div style="margin-top:16px;display:flex;gap:8px">{_btn("Add Another", "/library/add-url", False)} {_btn("View Library", "/library", False)}</div>'
+        else:
+            html = _card(f'<div style="color:#ef4444">{_esc(msg)}</div><div style="margin-top:12px">{_btn("Back", "/library/add-url", False)}</div>')
+
+        return _page("Ad Added", html, "library")
+
+    html = '''<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div><h2 style="margin-bottom:4px">Add Ad from URL</h2>
+      <p style="color:#8b91a8">Spotted a great competitor ad? Add it to the library so CUE can learn from it.</p></div>
+    </div>'''
+
+    html += _card(f'''<h3 style="margin-bottom:16px">Where to find good ads</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <a href="https://www.facebook.com/ads/library/" target="_blank" style="padding:12px;background:#242836;border-radius:8px;display:block;text-decoration:none">
+        <div style="font-size:13px;font-weight:600;color:#e4e7f0">Meta Ad Library ↗</div>
+        <div style="font-size:11px;color:#8b91a8;margin-top:4px">Search by brand or keyword. Filter: India, Video.</div>
+      </a>
+      <a href="https://www.youtube.com/ads/transparency/" target="_blank" style="padding:12px;background:#242836;border-radius:8px;display:block;text-decoration:none">
+        <div style="font-size:13px;font-weight:600;color:#e4e7f0">YouTube Ads Transparency ↗</div>
+        <div style="font-size:11px;color:#8b91a8;margin-top:4px">Search Indian telecom/ISP advertisers.</div>
+      </a>
+      <a href="https://www.thinkwithgoogle.com/intl/en-apac/" target="_blank" style="padding:12px;background:#242836;border-radius:8px;display:block;text-decoration:none">
+        <div style="font-size:13px;font-weight:600;color:#e4e7f0">Think with Google India ↗</div>
+        <div style="font-size:11px;color:#8b91a8;margin-top:4px">Case studies and award-winning Indian ads.</div>
+      </a>
+    </div>''')
+
+    html += f'<form method="POST" action="/library/add-url">'
+    html += _card(f'''<h3>Ad Details</h3>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Ad URL *</label>
+      <input type="url" name="url" required placeholder="https://www.youtube.com/watch?v=... or Meta Ad Library link">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Advertiser / Brand *</label>
+        <input type="text" name="advertiser" required placeholder="e.g., Airtel, Jio, BSNL">
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Platform *</label>
+        <select name="platform" required>
+          <option value="YouTube">YouTube</option>
+          <option value="Meta">Meta (Facebook/Instagram)</option>
+          <option value="Instagram">Instagram</option>
+          <option value="TV">TV / Broadcast</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Vertical</label>
+        <select name="vertical">
+          <option value="ISP/broadband">ISP / Broadband</option>
+          <option value="telecom">Telecom</option>
+          <option value="OTT/streaming">OTT / Streaming</option>
+          <option value="fintech">Fintech</option>
+          <option value="edtech">Edtech</option>
+          <option value="ecommerce">Ecommerce</option>
+          <option value="fmcg">FMCG</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Quality Tier</label>
+        <select name="tier">
+          <option value="exceptional">Exceptional — best in class</option>
+          <option value="strong">Strong — above average</option>
+          <option value="reference" selected>Reference — average/benchmark</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Language</label>
+        <select name="language">
+          <option value="Hindi">Hindi</option>
+          <option value="English">English</option>
+          <option value="Multilingual">Multilingual</option>
+          <option value="Tamil">Tamil</option>
+          <option value="Telugu">Telugu</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Why is this ad good? What stood out? *</label>
+      <textarea name="description" required placeholder="e.g., Strong emotional hook using family scene in first 3s. Dialogue-driven with no voiceover — feels authentic. Clear USP in last 5s without being pushy."></textarea>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;color:#8b91a8;margin-bottom:6px;text-transform:uppercase">Tags (comma-separated)</label>
+      <input type="text" name="tags" placeholder="e.g., emotional, family, hindi, tier-2-3, dialogue-driven">
+    </div>''')
+
+    html += f'<button type="submit" style="padding:10px 20px;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;border:none;background:#6366f1;color:white">Add to Library</button> {_btn("Cancel", "/library", False)}</form>'
+
+    return _page("Add Ad from URL", html, "library")
 
 
 @app.route("/playbook")
@@ -401,7 +588,21 @@ def wiom():
             aid = ctx["ad_id"]
             contexts_by_ad.setdefault(aid, []).append(ctx)
 
-    html = f'<h2>Wiom Ads & Scorecards</h2><div style="display:flex;gap:12px;margin-bottom:20px">{_btn("+ Upload Ad", "/wiom/upload")} {_btn("Batch Review/Suggest", "/batch/review", False)} {_btn("Campaign Mapping", "/campaign/map", False)}</div>'
+    # Determine next step for this page
+    has_context = any((CONTEXTS_DIR / f).exists() for f in [f.name for f in CONTEXTS_DIR.glob("*.json")] if True)
+    wiom_count = len(wiom_ids)
+    scored_count = len(scorecards)
+
+    if wiom_count == 0:
+        wiom_next = _next_step("Upload your first Wiom ad", "Upload a video file to get started. CUE will extract frames automatically.", "/wiom/upload", "Upload Ad →")
+    elif scored_count == 0:
+        wiom_next = _next_step("Set context then Review", "Before scoring, set the campaign objective so CUE applies the right weights. Then click Review.", "/context/new", "Set Context →")
+    elif scored_count < wiom_count:
+        wiom_next = _next_step("Review remaining ads", f"{wiom_count - scored_count} ads haven't been reviewed yet. Click Review on each.", "/batch/review", "Batch Review →")
+    else:
+        wiom_next = _next_step("Add live performance data", "Ads are scored. Now add Meta performance data to unlock Optimize.", "/performance", "Add Performance Data →")
+
+    html = f'<h2>Wiom Ads & Scorecards</h2><div style="display:flex;gap:12px;margin-bottom:16px">{_btn("+ Upload Ad", "/wiom/upload")} {_btn("Batch Review", "/batch/review", False)} {_btn("Campaign Mapping", "/campaign/map", False)}</div>{wiom_next}'
     for wid in wiom_ids:
         meta_path = WIOM_DIR / f"{wid}.json"
         meta = {}
