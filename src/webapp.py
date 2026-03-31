@@ -1317,10 +1317,14 @@ def run_full_pipeline(ad_id):
         try:
             decon, msg = run_deconstruct(ad_id)
             steps.append(("Deconstruct", decon is not None, msg))
+            if decon is None:
+                # Deconstruct failed — can't review without it, show error clearly
+                return _render_pipeline_result(ad_id, steps, None, None)
         except Exception as e:
             steps.append(("Deconstruct", False, str(e)))
-            # Can't proceed without decon
             return _render_pipeline_result(ad_id, steps, None, None)
+    else:
+        steps.append(("Deconstruct", True, "Already deconstructed ✓"))
 
     # Step 2: Review
     scorecard = None

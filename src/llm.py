@@ -254,8 +254,7 @@ Lessons for Wiom should be actionable creative insights."""
         decon["ad_id"] = ad_id  # Ensure correct ID
 
         ok, msg = save_deconstruction(decon)
-        if not ok:
-            return None, f"Saved JSON but schema validation failed: {msg}\nRaw: {raw[:300]}"
+        # save_deconstruction always saves now — ok=False means schema warning only
         return decon, msg
     except json.JSONDecodeError as e:
         return None, f"LLM returned invalid JSON: {e}. Raw: {raw[:400]}"

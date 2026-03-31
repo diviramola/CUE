@@ -206,10 +206,11 @@ def save_ad(data: dict) -> tuple:
 
 def save_deconstruction(data: dict) -> tuple:
     """Validate and save deconstruction. Mark ad as deconstructed.
-    Handles both library ads (ad_XXX) and Wiom ads (wiom_XXX)."""
+    Handles both library ads (ad_XXX) and Wiom ads (wiom_XXX).
+    Schema validation is informational — file is always saved if JSON is valid."""
     ok, err = validate_data(data, "deconstruction")
-    if not ok:
-        return False, err
+    # Don't block on schema validation — LLM enum mismatches shouldn't kill the pipeline
+    validation_note = f" (schema warning: {err})" if not ok else ""
     ad_id = data["ad_id"]
     is_wiom = ad_id.startswith("wiom_")
 
@@ -236,7 +237,7 @@ def save_deconstruction(data: dict) -> tuple:
         save_index(index)
 
     _update_state()
-    return True, f"Deconstruction saved for {ad_id}"
+    return True, f"Deconstruction saved for {ad_id}{validation_note}"
 
 
 # --- Campaign Context CRUD -----------------------------------------------
