@@ -223,16 +223,28 @@ def _page(title, content, active="home"):
   input:focus,select:focus,textarea:focus {{ outline:none;border-color:#6366f1; }}
   textarea {{ min-height:80px;resize:vertical; }}
   .sep {{ border-top:1px solid #2d3148;margin:24px 0; }}
+  #cue-nav {{ width:240px;background:#1a1d27;border-right:1px solid #2d3148;padding:24px 16px;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100; }}
+  #cue-main {{ margin-left:240px;padding:32px 40px;flex:1;max-width:1100px; }}
+  #nav-toggle {{ display:none;position:fixed;top:12px;right:16px;z-index:200;background:#6366f1;border:none;color:white;padding:6px 12px;border-radius:6px;font-size:18px;cursor:pointer; }}
+  @media(max-width:768px){{
+    #cue-nav {{ width:100%;height:auto;position:static;border-right:none;border-bottom:1px solid #2d3148;padding:12px 16px;display:none; }}
+    #cue-nav.open {{ display:block; }}
+    #cue-main {{ margin-left:0;padding:16px 14px; }}
+    #nav-toggle {{ display:block; }}
+    table {{ font-size:12px; }}
+    th,td {{ padding:8px; }}
+  }}
 </style>
 </head><body>
+<button id="nav-toggle" onclick="document.getElementById('cue-nav').classList.toggle('open')">☰</button>
 <div style="display:flex;min-height:100vh">
-  <nav style="width:240px;background:#1a1d27;border-right:1px solid #2d3148;padding:24px 16px;position:fixed;top:0;left:0;bottom:0;overflow-y:auto">
+  <nav id="cue-nav">
     <h1 style="font-size:18px;font-weight:700;color:#818cf8;margin-bottom:4px">CUE</h1>
     <div style="font-size:11px;color:#8b91a8;margin-bottom:24px;text-transform:uppercase;letter-spacing:1px">Creative Understanding Experiment</div>
     <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#8b91a8;margin-bottom:8px">Pipeline</div>
     {nav_html}
   </nav>
-  <main style="margin-left:240px;padding:32px 40px;flex:1;max-width:1100px">
+  <main id="cue-main">
     {content}
   </main>
 </div>
@@ -281,18 +293,37 @@ def _page(title, content, active="home"):
 
 @app.route("/")
 def home():
+    from datetime import timedelta
     state = get_state()
-    pb = get_progress_bar()
 
-    stats = '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:24px">'
-    stats += _stat(state["library"]["total_ads"], "Library Ads")
-    stats += _stat(state["wiom_ads"]["total"], "Wiom Ads")
-    stats += _stat(state["contexts"]["total"], "Contexts")
-    stats += _stat(state["scorecards"]["total"], "Scorecards")
-    stats += _stat(state["performance"]["total"], "Perf Snapshots")
-    stats += '</div>'
+    # Load all scorecards
+    scorecards = {}
+    for f in SCORECARDS_DIR.glob("*_scorecard.json"):
+        ad_id = f.stem.replace("_scorecard", "")
+        with open(f, "r", encoding="utf-8") as fh:
+            scorecards[ad_id] = json.load(fh)
 
-    # Determine overall next step
+    # Weekly activity — scorecards reviewed in last 7 days
+    today = datetime.now().date()
+    week_ago = today - timedelta(days=7)
+    reviewed_this_week = [
+        sc for sc in scorecards.values()
+        if sc.get("date_reviewed", "") >= str(week_ago)
+    ]
+
+    # Avg score + simple trend (this week vs older)
+    all_scores = [sc.get("overall_score", 0) for sc in scorecards.values()]
+    avg_score = round(sum(all_scores) / len(all_scores)) if all_scores else None
+    week_scores = [sc.get("overall_score", 0) for sc in reviewed_this_week]
+    older_scores = [sc.get("overall_score", 0) for sc in scorecards.values() if sc not in reviewed_this_week]
+    if week_scores and older_scores:
+        trend_delta = round(sum(week_scores)/len(week_scores) - sum(older_scores)/len(older_scores))
+        trend_arrow = ("↑ " + str(abs(trend_delta)) + " vs prev") if trend_delta > 0 else ("↓ " + str(abs(trend_delta)) + " vs prev") if trend_delta < 0 else "→ stable"
+        trend_color = "#22c55e" if trend_delta > 0 else "#ef4444" if trend_delta < 0 else "#8b91a8"
+    else:
+        trend_arrow, trend_color = "", "#8b91a8"
+
+    # Recommended action
     phase = state["current_phase"]
     phase_map = {
         "scout":         ("Build the reference library", "Add best-in-class competitor ads so CUE has patterns to learn from.", "/library/add-url", "Add Ad from URL →"),
@@ -303,59 +334,38 @@ def home():
         "suggest":       ("Generate suggestions", "Scorecards ready. Generate improvement suggestions.", "/wiom", "Go to Ads →"),
         "complete":      ("Add performance data", "Add live Meta data to unlock campaign optimization.", "/performance", "Add Performance →"),
     }
-    if phase in phase_map:
-        html = _next_step(*phase_map[phase])
-    else:
-        html = ""
+    rec_html = _next_step(*phase_map[phase]) if phase in phase_map else ""
 
-    html += f'<h2>Pipeline Status</h2>'
-    html += f'<div style="font-family:monospace;font-size:12px;color:#8b91a8;white-space:pre;line-height:1.6;padding:12px;background:#242836;border-radius:6px">{_esc(pb)}</div>'
-    html += stats
+    # --- Summary row ---
+    score_display = f'<span style="font-size:32px;font-weight:700;color:{"#22c55e" if avg_score and avg_score>=65 else "#f59e0b" if avg_score and avg_score>=40 else "#ef4444"}">{avg_score}</span><span style="font-size:13px;color:#8b91a8">/100</span>' if avg_score is not None else '<span style="font-size:20px;color:#4b5563">—</span>'
+    trend_html = f'<div style="font-size:12px;color:{trend_color};margin-top:4px">{trend_arrow}</div>' if trend_arrow else ""
 
-    # Scorecards
-    scorecards = {}
-    for f in SCORECARDS_DIR.glob("*_scorecard.json"):
-        ad_id = f.stem.replace("_scorecard", "")
-        with open(f, "r", encoding="utf-8") as fh:
-            scorecards[ad_id] = json.load(fh)
+    summary_cards = f'''<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px">
+      {_card(f'<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8b91a8;margin-bottom:8px">Avg Score</div>{score_display}{trend_html}', "padding:20px;margin-bottom:0")}
+      {_card(f'<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8b91a8;margin-bottom:8px">Reviewed This Week</div><span style="font-size:32px;font-weight:700;color:#818cf8">{len(reviewed_this_week)}</span><div style="font-size:12px;color:#8b91a8;margin-top:4px">{state["scorecards"]["total"]} total</div>', "padding:20px;margin-bottom:0")}
+      {_card(f'<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8b91a8;margin-bottom:8px">Wiom Ads</div><span style="font-size:32px;font-weight:700;color:#818cf8">{state["wiom_ads"]["total"]}</span><div style="font-size:12px;color:#8b91a8;margin-top:4px">{state["library"]["total_ads"]} in library</div>', "padding:20px;margin-bottom:0")}
+      {_card(f'<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8b91a8;margin-bottom:8px">Perf Snapshots</div><span style="font-size:32px;font-weight:700;color:#818cf8">{state["performance"]["total"]}</span><div style="font-size:12px;color:#8b91a8;margin-top:4px">{state["contexts"]["total"]} contexts set</div>', "padding:20px;margin-bottom:0")}
+    </div>'''
 
+    html = f'<h2 style="margin-bottom:20px">Dashboard</h2>{rec_html}{summary_cards}'
+
+    # Scored ads summary — compact table
     if scorecards:
-        html += '<h2 style="margin-top:32px">Latest Scorecards</h2>'
-        for ad_id, sc in scorecards.items():
-            dims = ""
-            for dn, dd in sc.get("dimensions", {}).items():
-                dims += _bar_row(_dim_label(dn), dd["score"])
+        rows = ""
+        for ad_id, sc in sorted(scorecards.items(), key=lambda x: -x[1].get("overall_score", 0)):
+            s = sc.get("overall_score", 0)
+            sc_color = "#22c55e" if s >= 65 else "#f59e0b" if s >= 40 else "#ef4444"
+            top_gap = sc.get("priority_gaps", [{}])[0].get("description", "—")[:60] if sc.get("priority_gaps") else "—"
+            rows += f'''<tr>
+              <td><a href="/wiom" style="color:#e4e7f0;font-weight:500">{_esc(_ad_name(ad_id))}</a><div style="font-size:11px;color:#8b91a8">{ad_id}</div></td>
+              <td><strong style="color:{sc_color}">{s}</strong></td>
+              <td>{_chip(sc.get("campaign_objective","default"), "blue")}</td>
+              <td style="font-size:12px;color:#8b91a8">{_esc(top_gap)}</td>
+              <td>{_btn("Review", f"/wiom", False, True)}</td>
+            </tr>'''
+        html += f'<h3>Scored Ads</h3>{_card(f"<table><tr><th>Ad</th><th>Score</th><th>Objective</th><th>Top Gap</th><th></th></tr>{rows}</table>", "padding:0;overflow:hidden")}'
 
-            chips = _chip(_format_label(sc.get("campaign_objective", "default")), "blue")
-            if sc.get("context_id"):
-                chips += _chip(f"Context: {sc['context_id']}", "green")
-            if sc.get("version"):
-                chips += _chip(f"v{sc['version']}", "amber")
-
-            brief_html = ""
-            ba = sc.get("brief_alignment")
-            if ba:
-                brief_html = '<div class="sep"></div>'
-                brief_html += f'<h3>Brief Alignment: {ba["overall_brief_score"]}/100</h3>'
-                for bk in ["audience_match", "message_delivery", "tone_match", "usp_clarity", "desired_action_driven"]:
-                    brief_html += _bar_row(_dim_label(bk), ba[bk])
-
-            buttons = f'''<div style="display:flex;gap:8px">
-              {_btn("Set Context & Re-Score", f"/context/new?ad_id={ad_id}", False, True)}
-              {_btn("Add Performance Data", f"/performance?ad_id={ad_id}", False, True)}
-              {_btn("View History", f"/history?ad_id={ad_id}", False, True)}
-            </div>'''
-
-            inner = f'''<div style="display:flex;justify-content:space-between;align-items:center">
-              <div><h3 style="margin-bottom:4px">{_esc(_ad_name(ad_id))}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:4px">{ad_id}</div>{chips}</div>
-              {_gauge(sc.get("overall_score", 0))}
-            </div>
-            <div style="margin-top:16px">{dims}</div>
-            {brief_html}
-            <div class="sep"></div>{buttons}'''
-            html += _card(inner)
-
-    # Suggestions
+    # Top suggestions — one card, collapsed list
     suggestions = {}
     for f in SUGGESTIONS_DIR.glob("*_suggestions.json"):
         ad_id = f.stem.replace("_suggestions", "")
@@ -363,24 +373,12 @@ def home():
             suggestions[ad_id] = json.load(fh)
 
     if suggestions:
-        html += '<h2 style="margin-top:32px">Latest Suggestions</h2>'
+        sug_rows = ""
         for ad_id, sug in suggestions.items():
-            items = ""
-            for s in sug.get("suggestions", []):
+            for s in sug.get("suggestions", [])[:2]:
                 pc = "red" if s["priority"] == "high" else "amber" if s["priority"] == "medium" else "green"
-                change_text = _esc(s.get("suggested_change", ""))
-                items += _card(f'''<div style="display:flex;justify-content:space-between;align-items:center">
-                  <span><strong>{_esc(_dim_label(s.get("dimension","")))}</strong>: {change_text}</span>
-                  {_chip(s["priority"], pc)}
-                </div>''', "background:#242836;padding:16px;margin-bottom:8px;margin-top:8px")
-
-            keeps = ""
-            for k in sug.get("keep", [])[:3]:
-                keeps += f'<div style="font-size:12px;color:#8b91a8;margin-top:4px">- {_esc(k)}</div>'
-            if keeps:
-                keeps = f'<div style="margin-top:12px"><strong style="font-size:12px;color:#22c55e">KEEP:</strong>{keeps}</div>'
-
-            html += _card(f'<h3>{_esc(_ad_name(ad_id))} -- {len(sug.get("suggestions",[]))} suggestions</h3>{items}{keeps}')
+                sug_rows += f'<tr><td style="font-size:12px;color:#8b91a8">{_esc(_ad_name(ad_id))}</td><td>{_chip(_dim_label(s.get("dimension","")), "blue")}</td><td style="font-size:12px">{_esc(s.get("suggested_change","")[:80])}</td><td>{_chip(s["priority"], pc)}</td></tr>'
+        html += f'<h3 style="margin-top:24px">Top Suggestions</h3>{_card(f"<table><tr><th>Ad</th><th>Dimension</th><th>Change</th><th>Priority</th></tr>{sug_rows}</table>", "padding:0;overflow:hidden")}'
 
     return _page("Dashboard", html, "home")
 
@@ -575,37 +573,95 @@ def playbook():
     with open(PLAYBOOK_JSON, "r", encoding="utf-8") as f:
         pb = json.load(f)
 
-    html = f'<h2>Creative Playbook</h2>'
-    html += f'<p style="color:#8b91a8;margin-bottom:24px">{pb.get("library_size",0)} ads analyzed | {len(pb.get("patterns",[]))} patterns | {len(pb.get("anti_patterns",[]))} anti-patterns</p>'
+    # Map of pattern IDs → example ad IDs from library (for "seen in" references)
+    lib_decons = {}
+    for lf in (ROOT / "library" / "metadata").glob("*_decon.json"):
+        try:
+            with open(lf, "r", encoding="utf-8") as fh:
+                ld = json.load(fh)
+            lib_decons[lf.stem.replace("_decon", "")] = ld
+        except Exception:
+            pass
 
-    html += '<h3>Patterns</h3>'
+    html = f'''<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div>
+        <h2 style="margin-bottom:4px">Creative Playbook</h2>
+        <p style="color:#8b91a8;font-size:13px">{pb.get("library_size",0)} ads analyzed &nbsp;·&nbsp; {len(pb.get("patterns",[]))} winning patterns &nbsp;·&nbsp; {len(pb.get("anti_patterns",[]))} anti-patterns to avoid</p>
+      </div>
+    </div>'''
+
+    # --- Patterns as visual cards ---
+    conf_map = {"strong": (100, "#22c55e"), "moderate": (60, "#f59e0b"), "emerging": (30, "#818cf8")}
+    freq_map  = {"very_high": 5, "high": 4, "medium": 3, "low": 2, "rare": 1}
+
+    html += f'<h3 style="margin:24px 0 16px">Winning Patterns</h3>'
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'
     for p in pb.get("patterns", []):
-        cc = "green" if p.get("confidence") == "strong" else "amber" if p.get("confidence") == "moderate" else "blue"
-        html += _card(f'''<div style="display:flex;justify-content:space-between;align-items:center">
-          <div>{_chip(p["id"], "blue")} <strong>{_esc(p["name"])}</strong></div>
-          {_chip(f'{p.get("confidence","")} ({p.get("frequency","")})', cc)}
-        </div>
-        <p style="font-size:13px;color:#8b91a8;margin-top:6px">{_esc(p.get("description",""))}</p>
-        <p style="font-size:12px;color:#8b91a8;margin-top:4px"><em>Mechanism: {_esc(p.get("mechanism",""))}</em></p>''', "padding:16px;margin-bottom:12px")
+        conf = p.get("confidence", "emerging")
+        conf_pct, conf_color = conf_map.get(conf, (30, "#818cf8"))
+        freq_dots = "●" * freq_map.get(p.get("frequency",""), 2) + "○" * (5 - freq_map.get(p.get("frequency",""), 2))
 
-    html += '<h3 style="margin-top:24px">Anti-Patterns</h3>'
+        # Which objectives benefit from this pattern
+        obj_tags = p.get("best_for_objectives", [])
+        obj_html = "".join(_chip(o, "blue") for o in obj_tags[:3]) if obj_tags else ""
+
+        # Example ads that exhibit this pattern (from lib decons — check hook or narrative)
+        examples = [aid for aid, ld in lib_decons.items()
+                    if p["id"] in str(ld)][:2]
+        ex_html = (" ".join(_chip(e, "gray") for e in examples)) if examples else ""
+
+        html += _card(f'''
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+            <div>
+              <span style="font-size:10px;color:#8b91a8;font-weight:500">{_esc(p["id"])}</span>
+              <div style="font-weight:600;font-size:15px;margin-top:2px">{_esc(p["name"])}</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:11px;color:{conf_color};font-weight:600;text-transform:uppercase">{conf}</div>
+              <div style="font-size:11px;color:#8b91a8;letter-spacing:2px;margin-top:2px">{freq_dots}</div>
+            </div>
+          </div>
+          <div style="height:3px;background:#242836;border-radius:2px;margin-bottom:12px">
+            <div style="width:{conf_pct}%;height:3px;background:{conf_color};border-radius:2px"></div>
+          </div>
+          <p style="font-size:13px;color:#c9cde0;margin-bottom:8px;line-height:1.5">{_esc(p.get("description",""))}</p>
+          <p style="font-size:12px;color:#8b91a8;font-style:italic;margin-bottom:10px">Why it works: {_esc(p.get("mechanism",""))}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+            {obj_html}{ex_html}
+          </div>
+        ''', "padding:20px;margin-bottom:0")
+    html += '</div>'
+
+    # --- Anti-patterns ---
+    sev_map = {"high": ("#ef4444", 3), "medium": ("#f59e0b", 2), "low": ("#8b91a8", 1)}
+    html += f'<h3 style="margin:32px 0 16px">Anti-Patterns to Avoid</h3>'
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'
     for ap in pb.get("anti_patterns", []):
-        sc = "red" if ap.get("severity") == "high" else "amber"
-        html += _card(f'''<div style="display:flex;justify-content:space-between">
-          <div>{_chip(ap["id"], "red")} <strong>{_esc(ap["name"])}</strong></div>
-          {_chip(ap.get("severity",""), sc)}
-        </div>
-        <p style="font-size:13px;color:#8b91a8;margin-top:6px">{_esc(ap.get("description",""))}</p>''', "padding:16px;margin-bottom:12px;border-left:3px solid #ef4444")
+        sev_color, sev_w = sev_map.get(ap.get("severity","low"), ("#8b91a8",1))
+        sev_bars = "▮" * sev_w + "▯" * (3 - sev_w)
+        html += _card(f'''
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+            <div>
+              <span style="font-size:10px;color:#8b91a8">{_esc(ap["id"])}</span>
+              <div style="font-weight:600;font-size:15px;margin-top:2px">{_esc(ap["name"])}</div>
+            </div>
+            <div style="font-size:13px;color:{sev_color};letter-spacing:1px;font-weight:600">{sev_bars}</div>
+          </div>
+          <p style="font-size:13px;color:#c9cde0;line-height:1.5">{_esc(ap.get("description",""))}</p>
+          {"<p style='font-size:12px;color:#8b91a8;margin-top:8px;font-style:italic'>Fix: " + _esc(ap.get("fix","")) + "</p>" if ap.get("fix") else ""}
+        ''', f"padding:20px;margin-bottom:0;border-left:3px solid {sev_color}")
+    html += '</div>'
 
+    # --- Scoring rubric (collapsed) ---
     rubric = pb.get("scoring_rubric", {}).get("dimensions", {})
     if rubric:
-        html += '<h3 style="margin-top:24px">Scoring Rubric</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'
+        rubric_rows = ""
         for dn, dd in rubric.items():
-            scores_html = ""
-            for sk, sv in dd.get("scores", {}).items():
-                scores_html += f'<div style="font-size:12px;margin-bottom:4px"><strong>{sk}:</strong> {_esc(sv)}</div>'
-            html += _card(f'<h3>{_dim_label(dn)} ({int(dd.get("weight",0)*100)}%)</h3>{scores_html}', "padding:16px;margin-bottom:12px")
-        html += '</div>'
+            rubric_rows += f'<tr><td style="font-weight:500">{_dim_label(dn)}</td><td style="color:#818cf8">{int(dd.get("weight",0)*100)}%</td><td style="font-size:12px;color:#8b91a8">{_esc(list(dd.get("scores",{}).values())[-1] if dd.get("scores") else "")}</td></tr>'
+        html += f'''<details style="margin-top:28px">
+          <summary style="font-size:14px;font-weight:600;cursor:pointer;color:#818cf8;user-select:none;list-style:none">▸ Scoring Rubric (5 dimensions)</summary>
+          <div style="margin-top:12px">{_card(f"<table><tr><th>Dimension</th><th>Weight</th><th>Score 5 = </th></tr>{rubric_rows}</table>","padding:0;overflow:hidden")}</div>
+        </details>'''
 
     return _page("Playbook", html, "playbook")
 
@@ -789,7 +845,26 @@ def wiom():
         html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge} {archived_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{transcript_html}{status_pills}{score_html}{ctx_html}{buttons}')
 
     if not wiom_ids:
-        html += _card('<div style="text-align:center;padding:48px;color:#8b91a8"><h3 style="color:#e4e7f0;margin-bottom:8px">No Wiom ads loaded</h3><p>Share a video file in Claude Code to add your first Wiom ad.</p></div>')
+        def _step(num, title, desc, href, cta, active=True):
+            op = "1" if active else "0.4"
+            return f'''<div style="display:flex;gap:16px;align-items:flex-start;opacity:{op};margin-bottom:20px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#6366f122;border:2px solid #6366f1;
+                display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
+                color:#818cf8;flex-shrink:0">{num}</div>
+              <div style="flex:1">
+                <div style="font-weight:600;margin-bottom:4px">{title}</div>
+                <div style="font-size:13px;color:#8b91a8;margin-bottom:8px">{desc}</div>
+                {(_btn(cta, href, active, True)) if active else f'<span style="font-size:12px;color:#4b5563">{cta} — complete step {num-1} first</span>'}
+              </div>
+            </div>'''
+        onboarding = f'''<div style="max-width:560px;margin:0 auto;padding:40px 0">
+          <h3 style="margin-bottom:6px;font-size:20px">Get started with CUE</h3>
+          <p style="color:#8b91a8;font-size:13px;margin-bottom:32px">Three steps to your first ad scorecard</p>
+          {_step(1, "Upload a Wiom ad", "Upload a video file — CUE extracts frames and transcribes audio automatically.", "/wiom/upload", "Upload Ad →", True)}
+          {_step(2, "Set campaign objective", "Tell CUE what this ad is optimising for. Objective drives the scoring weights.", "/context/new", "Set Objective →", False)}
+          {_step(3, "Click Review", "CUE runs the full pipeline — deconstruct → score → suggest — in one click.", "/wiom", "Go to Ads →", False)}
+        </div>'''
+        html += _card(onboarding)
 
     return _page("Wiom Ads", html, "wiom")
 
