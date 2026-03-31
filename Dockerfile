@@ -10,8 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Data lives on a mounted volume at /data
-ENV CUE_DATA_DIR=/data
+# App root — data (library, docs, output) lives here
+ENV CUE_DATA_DIR=/app
 
 EXPOSE 8080
 
