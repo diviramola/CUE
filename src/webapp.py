@@ -839,7 +839,7 @@ def wiom():
           {_pill("Optimized", has_optim, f"/performance?ad_id={wid}")}
         </div>'''
 
-        decon_badge = _chip("Deconstructed", "green") if has_decon else _chip("Not Deconstructed", "amber")
+        decon_badge = _chip("Deconstructed", "green") if has_decon else ""
         archived_badge = _chip("Archived", "gray") if meta.get("archived") else ""
         ad_title = _ad_name(wid)
         html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge} {archived_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{transcript_html}{status_pills}{score_html}{ctx_html}{buttons}')
