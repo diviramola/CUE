@@ -137,11 +137,13 @@ def _bar_row(label, score, max_score=5):
 
 
 def _gauge(score):
+    color = "#ef4444" if score < 40 else "#f59e0b" if score < 65 else "#22c55e"
+    label_color = "#ef4444" if score < 40 else "#f59e0b" if score < 65 else "#22c55e"
     return f'''<div style="width:100px;height:100px;border-radius:50%;margin:0 auto 8px;
-      background:conic-gradient(#6366f1 {score*3.6}deg,#242836 0);
+      background:conic-gradient({color} {score*3.6}deg,#242836 0);
       display:flex;align-items:center;justify-content:center;position:relative">
       <div style="width:76px;height:76px;border-radius:50%;background:#1a1d27;position:absolute"></div>
-      <span style="position:relative;z-index:1;font-size:20px;font-weight:700">{score}</span>
+      <span style="position:relative;z-index:1;font-size:20px;font-weight:700;color:{label_color}">{score}</span>
     </div>'''
 
 
@@ -234,6 +236,42 @@ def _page(title, content, active="home"):
     {content}
   </main>
 </div>
+<div id="cue-toast" style="display:none;position:fixed;bottom:28px;right:28px;z-index:9999;
+  background:#1e2235;border:1px solid #6366f140;border-radius:10px;padding:14px 20px;
+  box-shadow:0 4px 24px #00000060;display:flex;align-items:center;gap:12px;font-size:13px;
+  max-width:340px;animation:slideIn .25s ease">
+  <span id="cue-toast-icon" style="font-size:18px"></span>
+  <span id="cue-toast-msg"></span>
+</div>
+<style>
+@keyframes slideIn {{ from {{ opacity:0;transform:translateY(12px) }} to {{ opacity:1;transform:translateY(0) }} }}
+</style>
+<script>
+(function(){{
+  var p = new URLSearchParams(location.search);
+  var msg = p.get('toast');
+  var type = p.get('toast_type') || 'ok';
+  if (msg) {{
+    var el = document.getElementById('cue-toast');
+    var icon = document.getElementById('cue-toast-icon');
+    var txt = document.getElementById('cue-toast-msg');
+    el.style.display = 'flex';
+    txt.textContent = decodeURIComponent(msg);
+    icon.textContent = type === 'error' ? '⚠️' : type === 'warn' ? '⚡' : '✅';
+    if (type === 'error') el.style.borderColor = '#ef444440';
+    else if (type === 'warn') el.style.borderColor = '#f59e0b40';
+    else el.style.borderColor = '#22c55e40';
+    setTimeout(function() {{
+      el.style.transition = 'opacity .4s';
+      el.style.opacity = '0';
+      setTimeout(function() {{ el.style.display = 'none'; }}, 400);
+    }}, 3500);
+    // Clean URL so toast doesn't reappear on refresh
+    var clean = location.pathname + (p.toString().replace(/&?toast[^&]*/g,'').replace(/&?toast_type[^&]*/g,'').replace(/^\?$/,'') ? '?' + p.toString().replace(/&?toast=[^&]*/g,'').replace(/&?toast_type=[^&]*/g,'').replace(/^&/,'') : '');
+    history.replaceState(null,'',clean);
+  }}
+}})();
+</script>
 </body></html>'''
 
 
@@ -673,10 +711,34 @@ def wiom():
           {change_obj_btn} {archive_btn} {delete_btn}
         </div>'''
 
+        # Pipeline status pills — shows where each ad is in the flow
+        has_scored  = wid in scorecards
+        has_optim   = (OPTIMIZATIONS_DIR / f"{wid}_opt_001.json").exists() or any(OPTIMIZATIONS_DIR.glob(f"{wid}_opt_*.json"))
+        def _pill(label, done, href=None):
+            if done:
+                st = "background:#22c55e22;color:#22c55e;border:1px solid #22c55e44"
+                icon = "✓"
+            else:
+                st = "background:#24283622;color:#4b5563;border:1px solid #2d3148"
+                icon = "○"
+            inner = f'<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;{st}">{icon} {label}</span>'
+            if href and not done:
+                return f'<a href="{href}" style="text-decoration:none">{inner}</a>'
+            return inner
+        status_pills = f'''<div style="display:flex;align-items:center;gap:6px;margin-top:12px;flex-wrap:wrap">
+          {_pill("Uploaded", True)}
+          <span style="color:#2d3148;font-size:12px">→</span>
+          {_pill("Deconstructed", has_decon, f"/run/full/{wid}")}
+          <span style="color:#2d3148;font-size:12px">→</span>
+          {_pill("Reviewed", has_scored, f"/run/full/{wid}")}
+          <span style="color:#2d3148;font-size:12px">→</span>
+          {_pill("Optimized", has_optim, f"/performance?ad_id={wid}")}
+        </div>'''
+
         decon_badge = _chip("Deconstructed", "green") if has_decon else _chip("Not Deconstructed", "amber")
         archived_badge = _chip("Archived", "gray") if meta.get("archived") else ""
         ad_title = _ad_name(wid)
-        html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge} {archived_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{score_html}{ctx_html}{buttons}')
+        html += _card(f'<h3>{_esc(ad_title)}</h3><div style="font-size:11px;color:#8b91a8;margin-bottom:8px">{wid} &nbsp;{decon_badge} {archived_badge}</div>{desc}<div style="margin-top:8px">{tags}</div>{status_pills}{score_html}{ctx_html}{buttons}')
 
     if not wiom_ids:
         html += _card('<div style="text-align:center;padding:48px;color:#8b91a8"><h3 style="color:#e4e7f0;margin-bottom:8px">No Wiom ads loaded</h3><p>Share a video file in Claude Code to add your first Wiom ad.</p></div>')
@@ -1044,7 +1106,7 @@ def performance_save():
         "platform_data": None,
     }
     save_performance_data(data)
-    return redirect(f"/performance?ad_id={ad_id}")
+    return redirect(f"/performance?ad_id={ad_id}&toast=Performance+snapshot+saved&toast_type=ok")
 
 
 @app.route("/history")
@@ -1535,7 +1597,8 @@ def wiom_archive(ad_id):
     meta["archived_at"] = datetime.now().isoformat() if meta["archived"] else None
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2, ensure_ascii=False)
-    return redirect("/wiom")
+    action = "Archived" if meta["archived"] else "Unarchived"
+    return redirect(f"/wiom?toast={action}+{ad_id}")
 
 
 @app.route("/wiom/<ad_id>/delete", methods=["POST"])
@@ -1580,7 +1643,7 @@ def wiom_delete(ad_id):
     if hist_dir.exists():
         shutil.rmtree(hist_dir, ignore_errors=True)
 
-    return redirect("/wiom")
+    return redirect(f"/wiom?toast={ad_id}+deleted&toast_type=warn")
 
 
 # ---------------------------------------------------------------------------
